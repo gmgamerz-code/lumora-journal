@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumora Journal • Cinematic Stories & Behind the Scenes</title>
-    <meta name="description" content="Stories that linger. Emotions that stay. Behind the scenes of Lumora Pictures — Turkish drama meets Pakistani soul.">
+    <title>Lumora Journal • The Unfinished Stories</title>
+    <meta name="description" content="Stories that refuse to end. A cinematic archive of emotion, craft, and the art of storytelling from Lumora Pictures.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@300;400;500;600&amp;display=swap');
-        
-        :root {
-            --gold: #C5A46E;
-        }
         
         body {
             font-family: 'Inter', system_ui, sans-serif;
@@ -21,312 +17,336 @@
         .heading-serif {
             font-family: 'Playfair Display', Georgia, serif;
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1.05;
         }
 
         .cinematic-bg {
-            background: linear-gradient(180deg, #0a0a0c 0%, #111113 100%);
+            background: #0a0a0c;
+        }
+
+        .section-header {
+            font-size: 3.25rem;
+            line-height: 1.0;
+            letter-spacing: -0.04em;
         }
 
         .post-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.23, 1.0, 0.32, 1);
         }
         
         .post-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
         }
 
         .nav-scrolled {
-            background-color: rgba(17, 17, 19, 0.95);
-            backdrop-filter: blur(12px);
+            background-color: rgba(10, 10, 12, 0.95);
+            backdrop-filter: blur(20px);
         }
 
         .modal {
-            animation: modalPop 0.3s ease forwards;
+            animation: modalEnter 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
         }
 
         .prose {
-            font-size: 1.05rem;
-            line-height: 1.75;
+            font-size: 1.08rem;
+            line-height: 1.8;
         }
 
         .prose h2 {
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.65rem;
-            margin-top: 2rem;
+            font-size: 1.85rem;
+            margin-top: 2.5rem;
             margin-bottom: 1rem;
-            color: #f1e7d2;
+            color: #f4e9d8;
         }
 
-        .category-pill {
+        .filter-pill {
             transition: all 0.2s ease;
         }
-
-        .category-pill.active {
+        
+        .filter-pill.active {
             background-color: #C5A46E;
             color: #111113;
-            font-weight: 600;
+            border-color: #C5A46E;
         }
 
-        .gold-accent {
+        .mood-pill {
+            transition: all 0.2s ease;
+        }
+        
+        .mood-pill.active {
+            background-color: #3b2f1f;
+            border-color: #C5A46E;
+            color: #f4e9d8;
+        }
+
+        .gold {
             color: #C5A46E;
         }
 
-        .section-header {
-            font-size: 2.75rem;
-            line-height: 1.05;
-            font-weight: 700;
-        }
-
-        .post-image {
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .story-card {
+            position: relative;
+            overflow: hidden;
         }
         
-        .post-card:hover .post-image {
-            transform: scale(1.05);
+        .story-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.6));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .story-card:hover::after {
+            opacity: 1;
         }
 
-        .reading-progress {
-            transition: width 0.1s ease;
+        .cinematic-shadow {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3),
+                        0 4px 6px -4px rgb(0 0 0 / 0.3);
         }
     </style>
 </head>
 <body class="bg-[#0a0a0c] text-zinc-200 cinematic-bg">
     <!-- Navbar -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-screen-2xl mx-auto px-8">
             <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex items-center gap-x-3">
-                    <div class="w-9 h-9 bg-gradient-to-br from-[#C5A46E] to-amber-600 rounded-xl flex items-center justify-center">
-                        <span class="text-[#111113] font-bold text-2xl tracking-tighter">L</span>
-                    </div>
-                    <div>
-                        <span class="font-bold text-3xl tracking-tighter">Lumora</span>
-                        <span class="text-[#C5A46E] font-semibold text-3xl tracking-tighter">Journal</span>
-                    </div>
-                </div>
-
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
-                    <a href="#home" class="hover:text-[#C5A46E] transition-colors">Home</a>
-                    <a href="#journal" class="hover:text-[#C5A46E] transition-colors">Journal</a>
-                    <a href="#about" class="hover:text-[#C5A46E] transition-colors">About</a>
-                </div>
-
-                <!-- Right side -->
                 <div class="flex items-center gap-x-4">
-                    <!-- Search -->
-                    <div class="relative hidden md:block w-72">
-                        <input 
-                            id="search-input"
-                            type="text" 
-                            placeholder="Search stories..." 
-                            class="w-full bg-white/5 border border-white/10 focus:border-[#C5A46E]/50 transition-colors pl-10 pr-4 py-2.5 rounded-2xl text-sm outline-none placeholder:text-zinc-500"
-                        >
-                        <i class="fa-solid fa-search absolute left-4 top-3.5 text-zinc-500"></i>
+                    <div class="flex items-center gap-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-[#C5A46E] via-amber-600 to-[#C5A46E] rounded-2xl flex items-center justify-center shadow-inner">
+                            <span class="text-[#111113] font-black text-3xl tracking-[-3px]">L</span>
+                        </div>
+                        <div>
+                            <span class="font-bold text-4xl tracking-[-2.5px]">Lumora</span>
+                            <span class="gold font-semibold text-4xl tracking-[-2.5px]">Journal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center gap-x-10 text-sm font-medium">
+                    <a href="#journal" class="hover:text-[#C5A46E] transition-colors">The Archive</a>
+                    <a href="#categories" class="hover:text-[#C5A46E] transition-colors">Categories</a>
+                    <a href="#moods" class="hover:text-[#C5A46E] transition-colors">By Mood</a>
+                    <a href="#about" class="hover:text-[#C5A46E] transition-colors">The Story</a>
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <div class="relative w-80 hidden lg:block">
+                        <input id="search-input" type="text" placeholder="Search stories, emotions, characters..." 
+                               class="w-full bg-white/5 border border-white/10 focus:border-[#C5A46E]/60 pl-11 pr-5 py-3 rounded-3xl text-sm outline-none placeholder:text-zinc-500">
+                        <i class="fa-solid fa-search absolute left-4.5 top-4 text-zinc-500"></i>
                     </div>
 
-                    <!-- Theme Toggle -->
-                    <button onclick="toggleTheme()" 
-                            class="w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-white/5 transition-colors text-xl">
+                    <button onclick="toggleTheme()" class="w-11 h-11 flex items-center justify-center rounded-2xl hover:bg-white/5 text-xl transition-colors">
                         <i class="fa-solid fa-moon" id="theme-icon"></i>
-                    </button>
-
-                    <!-- Mobile Menu -->
-                    <button class="md:hidden w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-white/5" onclick="toggleMobileMenu()">
-                        <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero / Home -->
-    <section id="home" class="pt-20 min-h-[100dvh] flex items-center relative overflow-hidden">
-        <div class="max-w-5xl mx-auto px-6 pt-12 pb-20 text-center relative z-10">
-            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
-                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                <span class="text-sm font-medium tracking-wider">NEW EPISODE LIVE ON YOUTUBE</span>
-            </div>
-            
-            <h1 class="heading-serif text-7xl md:text-8xl leading-none tracking-tighter mb-6">
-                Stories that<br>linger.<br>
-                <span class="gold-accent">Emotions that stay.</span>
-            </h1>
-            
-            <p class="max-w-md mx-auto text-xl text-zinc-400 mb-10">
-                Behind the lens of Lumora Pictures.<br>
-                Turkish drama meets Pakistani soul.
-            </p>
+    <!-- Hero -->
+    <section class="pt-20 min-h-[95dvh] flex items-center relative overflow-hidden border-b border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-8 pt-16 pb-20 relative z-10">
+            <div class="max-w-5xl">
+                <div class="inline-flex items-center gap-x-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
+                    <div class="flex items-center gap-x-1.5">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                        <span class="text-xs font-semibold tracking-[2px] text-emerald-400">SEASON 1 IN PROGRESS</span>
+                    </div>
+                </div>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#journal" 
-                   class="inline-flex items-center justify-center px-9 py-4 bg-[#C5A46E] hover:bg-amber-600 transition-all text-[#111113] font-semibold rounded-2xl text-lg">
-                    Start Reading
-                </a>
-                <a href="https://youtube.com/shorts/dhWjRzFNocI" target="_blank"
-                   class="inline-flex items-center justify-center gap-x-3 px-9 py-4 border border-white/20 hover:bg-white/5 transition-all font-medium rounded-2xl text-lg">
-                    <i class="fa-brands fa-youtube"></i>
-                    <span>Watch Episode 1</span>
-                </a>
+                <h1 class="heading-serif text-7xl md:text-[5.75rem] leading-[0.92] tracking-[-4.5px] mb-6">
+                    Stories that<br>refuse to end.<br>
+                    <span class="gold">Emotions that<br>refuse to fade.</span>
+                </h1>
+
+                <p class="max-w-lg text-2xl text-zinc-400 mb-10 tracking-tight">
+                    The official archive of Lumora Pictures.<br>
+                    Where Turkish cinema meets Pakistani soul.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="#journal" 
+                       class="inline-flex items-center justify-center gap-x-3 px-10 py-[17px] bg-[#C5A46E] hover:bg-amber-600 active:scale-[0.985] transition-all text-[#111113] font-semibold rounded-3xl text-lg">
+                        Enter The Archive
+                    </a>
+                    <a href="https://youtube.com/shorts/dhWjRzFNocI" target="_blank"
+                       class="inline-flex items-center justify-center gap-x-3 px-8 py-[17px] border border-white/20 hover:bg-white/5 transition-all font-medium rounded-3xl text-lg">
+                        <i class="fa-brands fa-youtube mr-1"></i>
+                        <span>Watch Episode 1</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-x-8 mt-14 text-sm">
+                    <div class="flex -space-x-3">
+                        <div class="w-8 h-8 bg-zinc-700 rounded-full border-2 border-[#0a0a0c] overflow-hidden"><img src="https://picsum.photos/id/1005/32/32" class="w-full h-full object-cover"></div>
+                        <div class="w-8 h-8 bg-zinc-700 rounded-full border-2 border-[#0a0a0c] overflow-hidden"><img src="https://picsum.photos/id/1011/32/32" class="w-full h-full object-cover"></div>
+                        <div class="w-8 h-8 bg-zinc-700 rounded-full border-2 border-[#0a0a0c] overflow-hidden"><img src="https://picsum.photos/id/160/32/32" class="w-full h-full object-cover"></div>
+                    </div>
+                    <div class="text-zinc-400 text-sm">Joined by <span class="text-white font-medium">12,847</span> storytellers</div>
+                </div>
             </div>
         </div>
 
-        <!-- Subtle gradient overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-[#0a0a0c]"></div>
+        <div class="absolute bottom-12 right-8 hidden xl:block text-right">
+            <div class="text-xs tracking-[3px] text-zinc-500 mb-1">CURRENTLY IN THE ROOM</div>
+            <div class="text-2xl font-semibold tracking-tight">Episode 03 • "The Weight of Silence"</div>
+        </div>
     </section>
 
-    <!-- Featured Posts -->
-    <section class="max-w-7xl mx-auto px-6 pb-16">
-        <div class="flex items-end justify-between mb-8">
+    <!-- Stats -->
+    <div class="max-w-screen-2xl mx-auto px-8 py-8 border-b border-white/10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div>
-                <span class="text-[#C5A46E] text-sm font-semibold tracking-[3px]">CURATED</span>
-                <h2 class="heading-serif text-5xl tracking-tighter">Featured Stories</h2>
+                <div class="text-5xl font-semibold tracking-tighter">127</div>
+                <div class="text-sm text-zinc-500 mt-1">Stories in the Archive</div>
+            </div>
+            <div>
+                <div class="text-5xl font-semibold tracking-tighter">8</div>
+                <div class="text-sm text-zinc-500 mt-1">Emotional Categories</div>
+            </div>
+            <div>
+                <div class="text-5xl font-semibold tracking-tighter">41</div>
+                <div class="text-sm text-zinc-500 mt-1">Director's Notes</div>
+            </div>
+            <div>
+                <div class="text-5xl font-semibold tracking-tighter">19</div>
+                <div class="text-sm text-zinc-500 mt-1">Countries Reading</div>
             </div>
         </div>
+    </div>
 
-        <div class="grid md:grid-cols-3 gap-6" id="featured-grid">
-            <!-- Populated by JS -->
-        </div>
-    </section>
-
-    <!-- Journal Section -->
-    <section id="journal" class="max-w-7xl mx-auto px-6 py-16 border-t border-white/10">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4 mb-10">
+    <!-- Journal / Archive -->
+    <section id="journal" class="max-w-screen-2xl mx-auto px-8 pt-16 pb-12">
+        <div class="flex items-end justify-between mb-10">
             <div>
-                <span class="text-[#C5A46E] text-sm font-semibold tracking-[3px]">THE JOURNAL</span>
-                <h2 class="heading-serif text-6xl tracking-tighter">All Stories</h2>
+                <div class="text-[#C5A46E] text-sm font-semibold tracking-[4px]">THE ARCHIVE</div>
+                <h2 class="section-header tracking-[-3.5px]">All Stories</h2>
             </div>
-            
-            <!-- Category Filters -->
-            <div class="flex flex-wrap gap-2" id="category-filters">
+            <div class="text-sm text-zinc-400 hidden md:block">127 stories • Updated moments ago</div>
+        </div>
+
+        <!-- Filters -->
+        <div class="mb-8">
+            <div class="flex flex-wrap gap-2 mb-4" id="category-filters">
                 <!-- Populated by JS -->
+            </div>
+            
+            <div>
+                <div class="text-xs text-zinc-500 mb-2 tracking-wider">FILTER BY EMOTION</div>
+                <div class="flex flex-wrap gap-2" id="mood-filters">
+                    <!-- Populated by JS -->
+                </div>
             </div>
         </div>
 
         <!-- Posts Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7" id="posts-grid">
-            <!-- Populated dynamically by JavaScript -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="posts-grid">
+            <!-- Populated dynamically -->
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="max-w-5xl mx-auto px-6 py-20 border-t border-white/10">
-        <div class="grid md:grid-cols-12 gap-x-12 items-center">
-            <div class="md:col-span-7">
-                <span class="text-[#C5A46E] text-sm font-semibold tracking-[3px]">OUR STORY</span>
-                <h2 class="heading-serif text-6xl tracking-tighter leading-none mt-3 mb-8">
-                    We tell stories<br>that feel like<br>home.
-                </h2>
-                
-                <div class="prose text-zinc-300 max-w-prose">
-                    <p class="mb-6">Lumora Journal is the creative home of Lumora Pictures — where Turkish cinematic drama meets the raw emotion of Pakistani storytelling.</p>
-                    <p>We believe the most powerful stories are the ones that stay with you long after the screen goes dark. This is where we share the process, the heartbreaks, the late-night writing sessions, and the magic behind every frame.</p>
-                </div>
-            </div>
-            
-            <div class="md:col-span-5 mt-10 md:mt-0">
-                <div class="bg-white/5 border border-white/10 rounded-3xl p-8">
-                    <div class="flex items-center gap-x-4 mb-6">
-                        <div class="w-16 h-16 bg-zinc-800 rounded-2xl overflow-hidden">
-                            <img src="https://picsum.photos/id/1005/200/200" class="w-full h-full object-cover" alt="Lumora Team">
-                        </div>
-                        <div>
-                            <div class="font-semibold text-xl">Lumora Team</div>
-                            <div class="text-zinc-400">Storytellers • Islamabad</div>
-                        </div>
-                    </div>
-                    <p class="text-sm text-zinc-400">Currently working on Season 1 of <span class="text-white font-medium">"The Beginning of an Unfinished Love"</span></p>
-                </div>
-            </div>
+    <!-- By Mood Section -->
+    <section id="moods" class="max-w-screen-2xl mx-auto px-8 py-16 border-t border-white/10">
+        <div class="mb-10">
+            <div class="text-[#C5A46E] text-sm font-semibold tracking-[4px]">FEEL SOMETHING</div>
+            <h2 class="section-header tracking-[-3px]">Stories by Mood</h2>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" id="mood-grid">
+            <!-- Populated by JS -->
         </div>
     </section>
 
-    <!-- Newsletter -->
-    <section class="max-w-3xl mx-auto px-6 pb-20 text-center">
-        <div class="bg-white/5 border border-white/10 rounded-3xl p-12">
-            <h3 class="heading-serif text-4xl tracking-tight mb-3">Stay in the story.</h3>
-            <p class="text-zinc-400 mb-8">Get new stories, behind-the-scenes notes, and early access to episodes.</p>
+    <!-- About -->
+    <section id="about" class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-white/10">
+        <div class="max-w-4xl">
+            <div class="text-[#C5A46E] text-sm font-semibold tracking-[4px] mb-3">THE ORIGIN</div>
+            <h2 class="section-header tracking-[-3.5px] leading-none mb-8">We don’t just tell stories.<br>We leave pieces of ourselves in them.</h2>
             
-            <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input type="email" id="newsletter-email" placeholder="your@email.com" 
-                       class="flex-1 bg-white/5 border border-white/10 px-5 py-3.5 rounded-2xl text-sm outline-none focus:border-[#C5A46E]">
-                <button onclick="subscribeNewsletter()" 
-                        class="px-8 py-3.5 bg-[#C5A46E] hover:bg-amber-600 transition-all text-[#111113] font-semibold rounded-2xl whitespace-nowrap">
-                    Subscribe
-                </button>
+            <div class="prose max-w-3xl text-[15.5px] text-zinc-300">
+                <p>Lumora Journal is not a blog. It is the living memory of every frame, every silence, every unfinished conversation that shaped Lumora Pictures.</p>
+                <p class="mt-5">Born from late nights in Islamabad and Istanbul, from the collision of Turkish cinematic poetry and the raw emotional honesty of South Asian storytelling, this archive exists for those who believe stories should haunt you beautifully.</p>
             </div>
-            <p class="text-xs text-zinc-500 mt-4">No spam. Just stories worth remembering.</p>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-12">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-y-6 text-sm">
-            <div class="text-zinc-500">© 2026 Lumora Pictures. All stories are ours.</div>
-            <div class="flex gap-x-6">
-                <a href="#" class="hover:text-white transition-colors">YouTube</a>
-                <a href="#" class="hover:text-white transition-colors">Instagram</a>
-                <a href="#" class="hover:text-white transition-colors">X</a>
+    <footer class="border-t border-white/10 py-14">
+        <div class="max-w-screen-2xl mx-auto px-8 flex flex-col md:flex-row justify-between gap-y-8 text-sm">
+            <div>
+                <div class="flex items-center gap-x-3 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-[#C5A46E] to-amber-600 rounded-xl flex items-center justify-center">
+                        <span class="text-[#111113] font-black text-xl tracking-[-2px]">L</span>
+                    </div>
+                    <span class="font-semibold text-xl tracking-tight">Lumora Journal</span>
+                </div>
+                <div class="text-zinc-500 text-xs">A living archive by Lumora Pictures • Islamabad</div>
+            </div>
+            
+            <div class="flex gap-x-8 text-zinc-400">
+                <div class="space-y-1.5">
+                    <div class="hover:text-white cursor-pointer">YouTube</div>
+                    <div class="hover:text-white cursor-pointer">Instagram</div>
+                </div>
+                <div class="space-y-1.5">
+                    <div class="hover:text-white cursor-pointer">Director’s Notes</div>
+                    <div class="hover:text-white cursor-pointer">Submit a Story</div>
+                </div>
             </div>
         </div>
     </footer>
 
     <!-- Post Modal -->
     <div id="post-modal" onclick="if (event.target.id === 'post-modal') closeModal()" 
-         class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
+         class="hidden fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4 md:p-8">
         <div onclick="event.stopImmediatePropagation()" 
-             class="bg-[#111113] max-w-3xl w-full max-h-[92dvh] overflow-hidden rounded-3xl border border-white/10 flex flex-col modal">
+             class="bg-[#111113] w-full max-w-4xl max-h-[94dvh] overflow-hidden rounded-3xl border border-white/10 flex flex-col modal">
             
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between px-8 pt-6 pb-4 border-b border-white/10">
-                <div class="flex items-center gap-x-3 text-sm">
-                    <span id="modal-category" class="px-3.5 py-1 rounded-full bg-white/10 text-xs font-medium"></span>
-                    <span id="modal-date" class="text-zinc-400"></span>
+            <div class="flex items-center justify-between px-8 pt-7 pb-5 border-b border-white/10">
+                <div class="flex items-center gap-x-4">
+                    <span id="modal-category" class="px-4 py-1 text-xs font-medium rounded-full bg-white/10"></span>
+                    <span id="modal-mood" class="px-4 py-1 text-xs font-medium rounded-full border border-white/20"></span>
                 </div>
-                <button onclick="closeModal()" class="text-3xl leading-none text-zinc-400 hover:text-white">&times;</button>
+                <button onclick="closeModal()" class="text-4xl leading-none text-zinc-400 hover:text-white">&times;</button>
             </div>
 
-            <!-- Modal Content -->
-            <div class="overflow-y-auto flex-1 px-8 pb-8">
-                <div id="modal-image-container" class="mt-6 mb-8 rounded-2xl overflow-hidden">
+            <div class="overflow-y-auto flex-1 px-8 pb-10 custom-scroll">
+                <div class="mt-8 mb-7 rounded-3xl overflow-hidden">
                     <img id="modal-image" class="w-full h-auto object-cover" alt="">
                 </div>
 
-                <h1 id="modal-title" class="heading-serif text-5xl tracking-tighter leading-none mb-4"></h1>
+                <h1 id="modal-title" class="heading-serif text-6xl tracking-[-3.5px] leading-none mb-6"></h1>
                 
-                <div class="flex items-center gap-x-4 text-sm mb-8">
-                    <div class="flex items-center gap-x-2">
-                        <span class="font-medium">Lumora Team</span>
-                    </div>
-                    <span class="text-zinc-500">•</span>
-                    <span id="modal-readtime" class="text-zinc-400"></span>
+                <div class="flex items-center gap-x-5 text-sm mb-9">
+                    <div><span class="font-medium">Lumora Team</span></div>
+                    <div class="text-zinc-500">•</div>
+                    <div id="modal-date" class="text-zinc-400"></div>
+                    <div class="text-zinc-500">•</div>
+                    <div id="modal-readtime" class="text-zinc-400"></div>
                 </div>
 
-                <!-- Reading Progress -->
-                <div class="sticky top-0 bg-[#111113] py-3 -mx-8 px-8 border-b border-white/10 mb-6 z-10">
-                    <div class="h-px bg-white/10 w-full">
-                        <div id="reading-progress" class="h-px bg-[#C5A46E] w-0 reading-progress"></div>
-                    </div>
+                <div id="modal-content" class="prose max-w-none text-[15.8px] leading-relaxed text-zinc-300">
+                    <!-- Injected -->
                 </div>
 
-                <div id="modal-content" class="prose max-w-none text-[15.5px] leading-relaxed text-zinc-300">
-                    <!-- Dynamic content injected here -->
+                <div id="modal-quote" class="my-12 border-l-4 border-[#C5A46E] pl-7 italic text-2xl text-[#d4c3a3]">
+                    <!-- Injected key quote -->
                 </div>
 
-                <!-- Tags -->
-                <div id="modal-tags" class="flex flex-wrap gap-2 mt-10"></div>
+                <div id="modal-tags" class="flex flex-wrap gap-2 mb-8"></div>
 
-                <!-- Share -->
-                <div class="mt-10 pt-8 border-t border-white/10">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-zinc-400">Share this story</span>
-                        <div class="flex gap-x-3">
-                            <button onclick="sharePost('twitter')" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fa-brands fa-x-twitter"></i></button>
-                            <button onclick="sharePost('linkedin')" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fa-brands fa-linkedin-in"></i></button>
-                            <button onclick="copyLink()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fa-solid fa-link"></i></button>
+                <div class="pt-8 border-t border-white/10">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm font-medium text-zinc-400">Share this memory</span>
+                        <div class="flex gap-x-2">
+                            <button onclick="sharePost('twitter')" class="px-4 py-2 text-sm flex items-center gap-x-2 rounded-2xl hover:bg-white/5"><i class="fa-brands fa-x-twitter mr-1"></i> X</button>
+                            <button onclick="sharePost('linkedin')" class="px-4 py-2 text-sm flex items-center gap-x-2 rounded-2xl hover:bg-white/5"><i class="fa-brands fa-linkedin mr-1"></i> LinkedIn</button>
+                            <button onclick="copyLink()" class="px-4 py-2 text-sm flex items-center gap-x-2 rounded-2xl hover:bg-white/5"><i class="fa-solid fa-link mr-1"></i> Copy</button>
                         </div>
                     </div>
                 </div>
@@ -335,191 +355,216 @@
     </div>
 
     <script>
-        // Tailwind Script
         function initializeTailwind() {
-            document.documentElement.style.setProperty('--accent', '#C5A46E');
+            // Tailwind already loaded via CDN
         }
 
-        // Navbar scroll effect
         function initNavbar() {
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('nav-scrolled');
-                } else {
-                    navbar.classList.remove('nav-scrolled');
-                }
+                navbar.classList.toggle('nav-scrolled', window.scrollY > 60);
             });
         }
 
-        // Sample Posts Data (Easy to expand)
+        // === MASSIVE POST DATA (Way more than blogili style) ===
         let posts = [
             {
                 id: 1,
-                title: "The Beginning of an Unfinished Love",
-                excerpt: "Behind the making of our first episode — the emotions, the choices, and why we left it open-ended.",
+                title: "The Weight of Silence",
+                excerpt: "In Episode 3, we chose silence over dialogue for 47 seconds. Here’s why it broke everyone in the room.",
                 category: "Behind the Scenes",
-                date: "July 15, 2026",
-                readTime: "12 min",
-                image: "https://picsum.photos/id/1015/1200/630",
-                tags: ["Episode 1", "Process", "Drama"],
-                content: `
-                    <p class="text-lg text-zinc-300">When we released the first episode of <strong>"The Beginning of an Unfinished Love"</strong> as a YouTube Short, we knew it would hit differently.</p>
-                    
-                    <h2>Why We Chose to Start Here</h2>
-                    <p>We wanted to introduce our world not with a loud explosion, but with a quiet ache. The kind of ache that Turkish dramas do so beautifully — slow, intentional, and deeply human.</p>
-                    
-                    <p>Every frame was designed to feel like a memory you’re not sure you lived. The warm lighting, the lingering glances, the silence between words — these weren’t accidents.</p>
-                    
-                    <h2>The Hardest Decision</h2>
-                    <p>We shot three different endings for Episode 1. In the end, we chose the one that hurt the most… because that’s where the real story lives.</p>
-                    
-                    <blockquote class="border-l-4 border-[#C5A46E] pl-6 italic text-xl my-8 text-zinc-300">
-                        "Sometimes the most powerful thing you can do is not give the audience what they want — but what they need to feel."
-                    </blockquote>
-                    
-                    <p>This is only the beginning. The love is unfinished… and so is the story.</p>
-                `
+                mood: "Melancholy",
+                date: "July 14, 2026",
+                readTime: "14 min",
+                image: "https://picsum.photos/id/1015/1400/900",
+                tags: ["Episode 3", "Silence", "Direction"],
+                quote: "Sometimes the loudest thing in a scene is what isn’t said.",
+                content: `<p>In the writers’ room, we fought for three hours over one line. In the end, we removed it entirely.</p><p>The silence that replaced it became the most powerful moment in the entire episode. Turkish dramas taught us the beauty of restraint. Pakistani storytelling taught us the weight of family tension. We married both.</p>`
             },
             {
                 id: 2,
-                title: "Turkish Drama Meets Pakistani Soul",
-                excerpt: "How we’re blending two rich storytelling traditions into something completely new.",
-                category: "Culture",
-                date: "July 12, 2026",
-                readTime: "9 min",
-                image: "https://picsum.photos/id/160/1200/630",
-                tags: ["Culture", "Writing", "Inspiration"],
-                content: `
-                    <p>Turkish dramas have a certain poetry. Pakistani stories have raw emotional honesty. We’re trying to create something that carries both.</p>
-                    
-                    <h2>The Fusion</h2>
-                    <p>It’s not about copying either style. It’s about taking the emotional depth and slow-burn romance of Turkish dramas and grounding it in the family dynamics, cultural nuances, and warmth that Pakistani audiences understand instinctively.</p>
-                    
-                    <p>The result feels both familiar and fresh at the same time.</p>
-                `
+                title: "Why We Left the Love Unfinished",
+                excerpt: "The decision that defined our first episode and everything that will come after it.",
+                category: "Storytelling",
+                mood: "Nostalgia",
+                date: "July 10, 2026",
+                readTime: "11 min",
+                image: "https://picsum.photos/id/160/1400/900",
+                tags: ["Episode 1", "Philosophy"],
+                quote: "An unfinished story is an invitation, not a conclusion.",
+                content: `<p>We could have given them closure. We chose to give them longing instead.</p><p>In every great Turkish drama, the ache is the point. We brought that same ache into our world — but rooted it in the quiet, heavy silences that exist between families in our culture.</p>`
             },
             {
                 id: 3,
-                title: "Writing Scenes That Break You",
-                excerpt: "The craft behind emotional family moments that stay with the viewer for days.",
-                category: "Craft",
+                title: "The Color of Longing",
+                excerpt: "How we used light and color to tell the emotional truth of the story without a single word.",
+                category: "Visual Storytelling",
+                mood: "Melancholy",
                 date: "July 8, 2026",
-                readTime: "7 min",
-                image: "https://picsum.photos/id/201/1200/630",
-                tags: ["Writing", "Emotion", "Craft"],
-                content: `
-                    <p>Great drama isn’t about what happens. It’s about what it makes you feel.</p>
-                    
-                    <h2>The Rule We Follow</h2>
-                    <p>We never write a scene just to move the plot. Every scene must either break something or heal something inside a character.</p>
-                    
-                    <p>When we wrote the confrontation scene in Episode 1, we cried in the writers’ room. That’s usually a good sign.</p>
-                `
+                readTime: "9 min",
+                image: "https://picsum.photos/id/201/1400/900",
+                tags: ["Cinematography", "Color"],
+                quote: "Color is emotion made visible.",
+                content: `<p>Golden hour wasn’t just pretty. It was deliberate. Every warm tone represents memory. Every cool shadow represents the present they can’t escape.</p>`
             },
             {
                 id: 4,
-                title: "The Power of Leaving Stories Unfinished",
-                excerpt: "Why cliffhangers and open endings create stronger emotional bonds with your audience.",
-                category: "Storytelling",
+                title: "When Turkish Drama Met Desi Soul",
+                excerpt: "The cultural collision that created something neither tradition had seen before.",
+                category: "Culture",
+                mood: "Passion",
                 date: "July 5, 2026",
-                readTime: "6 min",
-                image: "https://picsum.photos/id/251/1200/630",
-                tags: ["Storytelling", "Theory"],
-                content: `
-                    <p>People don’t remember perfect endings. They remember how a story made them feel when it stopped.</p>
-                    
-                    <p>That’s the philosophy behind every Lumora story.</p>
-                `
+                readTime: "13 min",
+                image: "https://picsum.photos/id/251/1400/900",
+                tags: ["Culture", "Identity"],
+                quote: "We didn’t blend two worlds. We let them argue beautifully.",
+                content: `<p>Turkish dramas move like poetry. Our stories move like family arguments at 2 a.m. We let both exist in the same frame — and something honest emerged.</p>`
             },
             {
                 id: 5,
-                title: "Building Characters People Actually Care About",
-                excerpt: "Our approach to creating layered, believable characters in short-form drama.",
+                title: "Writing the Unsayable",
+                excerpt: "How we craft dialogue that feels like it was never meant to be spoken out loud.",
                 category: "Craft",
-                date: "July 2, 2026",
+                mood: "Tension",
+                date: "July 3, 2026",
+                readTime: "8 min",
+                image: "https://picsum.photos/id/1005/1400/900",
+                tags: ["Writing", "Dialogue"],
+                quote: "The best lines are the ones the character is terrified to say.",
+                content: `<p>We don’t write dialogue. We write what people are too scared, too proud, or too broken to say. Then we make them say it anyway.</p>`
+            },
+            {
+                id: 6,
+                title: "The Night We Cried in the Editing Room",
+                excerpt: "A behind-the-scenes confession about the moment the story became too real.",
+                category: "Behind the Scenes",
+                mood: "Melancholy",
+                date: "June 28, 2026",
+                readTime: "7 min",
+                image: "https://picsum.photos/id/29/1400/900",
+                tags: ["Editing", "Emotion"],
+                quote: "We stopped the timeline. No one spoke for almost a minute.",
+                content: `<p>We were editing the final scene of Episode 2 when the editor quietly said, “This is too much.” We all knew what he meant. We kept it anyway.</p>`
+            },
+            {
+                id: 7,
+                title: "Characters Who Refuse to Be Liked",
+                excerpt: "Why we write complicated, difficult, sometimes unlikeable people — and why you’ll still love them.",
+                category: "Craft",
+                mood: "Tension",
+                date: "June 25, 2026",
                 readTime: "10 min",
-                image: "https://picsum.photos/id/1005/1200/630",
+                image: "https://picsum.photos/id/160/1400/900",
                 tags: ["Characters", "Writing"],
-                content: `
-                    <p>Flawed characters are interesting. Broken characters are unforgettable.</p>
-                    
-                    <p>We spend more time on what our characters are hiding than what they’re showing.</p>
-                `
+                quote: "Perfection is boring. Broken is magnetic.",
+                content: `<p>Our protagonists are not heroes. They are people carrying things they don’t know how to put down. That’s why they feel real.</p>`
+            },
+            {
+                id: 8,
+                title: "The Architecture of Longing",
+                excerpt: "How physical spaces in our stories carry emotional weight as much as the characters do.",
+                category: "Visual Storytelling",
+                mood: "Nostalgia",
+                date: "June 20, 2026",
+                readTime: "12 min",
+                image: "https://picsum.photos/id/1016/1400/900",
+                tags: ["Production Design", "Space"],
+                quote: "A room can remember better than any character.",
+                content: `<p>The old family home isn’t just a location. It’s a character that has witnessed every betrayal, every forgiveness, every silence. We treat it that way.</p>`
+            },
+            {
+                id: 9,
+                title: "How We Steal From Turkish Masters",
+                excerpt: "The specific techniques we borrowed — and completely transformed.",
+                category: "Culture",
+                mood: "Passion",
+                date: "June 18, 2026",
+                readTime: "9 min",
+                image: "https://picsum.photos/id/201/1400/900",
+                tags: ["Inspiration", "Technique"],
+                quote: "Steal like an artist. Then make it yours.",
+                content: `<p>We studied the masters. Then we asked: “What would this look like if it happened in a Lahore drawing room instead of Istanbul?” That question changed everything.</p>`
+            },
+            {
+                id: 10,
+                title: "The First Time We Saw the Dailies",
+                excerpt: "The terrifying and beautiful moment when the story left our minds and became real.",
+                category: "Behind the Scenes",
+                mood: "Hope",
+                date: "June 15, 2026",
+                readTime: "6 min",
+                image: "https://picsum.photos/id/251/1400/900",
+                tags: ["Production", "Emotion"],
+                quote: "We had been living with ghosts. Suddenly they had faces.",
+                content: `<p>Nothing prepares you for seeing actors breathe life into words you wrote at 3 a.m. It’s terrifying. It’s everything.</p>`
+            },
+            {
+                id: 11,
+                title: "Writing Love That Hurts",
+                excerpt: "The difference between romantic love and the kind of love that actually changes people.",
+                category: "Storytelling",
+                mood: "Passion",
+                date: "June 12, 2026",
+                readTime: "11 min",
+                image: "https://picsum.photos/id/1005/1400/900",
+                tags: ["Love", "Emotion"],
+                quote: "Easy love is forgettable. Difficult love is unforgettable.",
+                content: `<p>We don’t write love stories. We write stories about people who are willing to be destroyed by love — and still choose it.</p>`
+            },
+            {
+                id: 12,
+                title: "The Future of Unfinished Stories",
+                excerpt: "Where Lumora is going and why we will never give you complete closure.",
+                category: "Storytelling",
+                mood: "Hope",
+                date: "June 8, 2026",
+                readTime: "8 min",
+                image: "https://picsum.photos/id/29/1400/900",
+                tags: ["Future", "Philosophy"],
+                quote: "Closure is overrated. Longing is eternal.",
+                content: `<p>Our stories will always leave something unfinished. Not because we can’t finish them — but because life doesn’t finish. And we want our audience to feel that truth in their bones.</p>`
             }
         ]
 
-        // Render Featured Posts
-        function renderFeaturedPosts() {
-            const container = document.getElementById('featured-grid');
-            container.innerHTML = '';
-            
-            const featured = posts.slice(0, 3);
-            
-            featured.forEach(post => {
-                const card = document.createElement('div');
-                card.className = `post-card group cursor-pointer bg-white/5 border border-white/10 rounded-3xl overflow-hidden`;
-                card.innerHTML = `
-                    <div class="relative h-56 overflow-hidden">
-                        <img src="${post.image}" class="post-image w-full h-full object-cover" alt="${post.title}">
-                        <div class="absolute top-4 left-4">
-                            <span class="px-3 py-1 text-xs font-medium bg-black/60 backdrop-blur-md rounded-full">${post.category}</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-semibold text-xl leading-tight tracking-tight mb-3 group-hover:text-[#C5A46E] transition-colors">${post.title}</h3>
-                        <p class="text-sm text-zinc-400 line-clamp-2">${post.excerpt}</p>
-                        <div class="flex items-center justify-between mt-5 text-xs text-zinc-500">
-                            <span>${post.date}</span>
-                            <span>${post.readTime}</span>
-                        </div>
-                    </div>
-                `;
-                card.onclick = () => openPostModal(post.id);
-                container.appendChild(card);
-            });
-        }
+        let currentCategoryFilter = 'All';
+        let currentMoodFilter = 'All';
 
-        // Render All Posts + Filters
-        let currentFilter = 'All';
-
-        function renderPosts(filteredPosts = posts) {
+        function renderPosts(filteredPosts) {
             const container = document.getElementById('posts-grid');
             container.innerHTML = '';
 
             if (filteredPosts.length === 0) {
-                container.innerHTML = `<p class="col-span-full text-center py-12 text-zinc-400">No stories found matching your search.</p>`;
+                container.innerHTML = `<p class="col-span-full py-12 text-center text-zinc-400">No stories found matching your filters.</p>`;
                 return;
             }
 
             filteredPosts.forEach(post => {
                 const card = document.createElement('div');
-                card.className = `post-card group cursor-pointer bg-white/5 border border-white/10 rounded-3xl overflow-hidden flex flex-col`;
+                card.className = `story-card post-card group cursor-pointer bg-zinc-900/60 border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full`;
                 
                 card.innerHTML = `
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="${post.image}" class="post-image w-full h-full object-cover transition-transform" alt="${post.title}">
-                        <div class="absolute top-4 left-4">
-                            <span class="px-3 py-1 text-xs font-medium bg-black/70 backdrop-blur rounded-full">${post.category}</span>
+                    <div class="relative">
+                        <img src="${post.image}" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-[1.06]" alt="${post.title}">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                            <span class="px-3.5 py-1 text-[10px] font-medium tracking-wider bg-black/70 backdrop-blur rounded-full">${post.category}</span>
+                            <span class="px-3.5 py-1 text-[10px] font-medium tracking-wider border border-white/30 rounded-full">${post.mood}</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-1">
                         <h3 class="font-semibold text-[21px] leading-tight tracking-tight mb-3 group-hover:text-[#C5A46E] transition-colors">${post.title}</h3>
                         <p class="text-sm text-zinc-400 line-clamp-3 flex-1">${post.excerpt}</p>
                         
-                        <div class="flex items-center justify-between mt-auto pt-5 text-xs text-zinc-500">
+                        <div class="flex items-center justify-between mt-6 text-xs text-zinc-500">
                             <div>${post.date}</div>
                             <div class="font-medium">${post.readTime}</div>
                         </div>
                     </div>
                 `;
-                
                 card.onclick = () => openPostModal(post.id);
                 container.appendChild(card);
             });
         }
 
-        // Category Filters
         function renderCategoryFilters() {
             const container = document.getElementById('category-filters');
             const categories = ['All', ...new Set(posts.map(p => p.category))];
@@ -528,70 +573,122 @@
             
             categories.forEach(cat => {
                 const btn = document.createElement('button');
-                btn.className = `category-pill px-5 py-2 text-sm font-medium rounded-2xl border transition-all ${cat === 'All' ? 'active border-[#C5A46E] bg-[#C5A46E] text-[#111113]' : 'border-white/10 hover:border-white/30'}`;
+                btn.className = `filter-pill px-6 py-2 text-sm font-medium rounded-3xl border transition-all ${cat === 'All' ? 'active border-[#C5A46E] bg-[#C5A46E] text-[#111113]' : 'border-white/10 hover:border-white/30'}`;
                 btn.textContent = cat;
                 
                 btn.onclick = () => {
-                    currentFilter = cat;
-                    filterPosts();
-                    
-                    // Update active state
+                    currentCategoryFilter = cat;
+                    applyFilters();
                     document.querySelectorAll('#category-filters button').forEach(b => b.classList.remove('active', 'border-[#C5A46E]', 'bg-[#C5A46E]', 'text-[#111113]'));
                     btn.classList.add('active', 'border-[#C5A46E]', 'bg-[#C5A46E]', 'text-[#111113]');
                 };
-                
                 container.appendChild(btn);
             });
         }
 
-        function filterPosts() {
+        function renderMoodFilters() {
+            const container = document.getElementById('mood-filters');
+            const moods = ['All', ...new Set(posts.map(p => p.mood))];
+            
+            container.innerHTML = '';
+            
+            moods.forEach(mood => {
+                const btn = document.createElement('button');
+                btn.className = `mood-pill px-5 py-[7px] text-sm font-medium rounded-3xl border border-white/10 transition-all`;
+                btn.textContent = mood;
+                
+                btn.onclick = () => {
+                    currentMoodFilter = mood;
+                    applyFilters();
+                    document.querySelectorAll('#mood-filters button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function applyFilters() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             
             let filtered = posts;
             
-            if (currentFilter !== 'All') {
-                filtered = filtered.filter(p => p.category === currentFilter);
+            if (currentCategoryFilter !== 'All') {
+                filtered = filtered.filter(p => p.category === currentCategoryFilter);
             }
-            
+            if (currentMoodFilter !== 'All') {
+                filtered = filtered.filter(p => p.mood === currentMoodFilter);
+            }
             if (searchTerm) {
                 filtered = filtered.filter(p => 
-                    p.title.toLowerCase().includes(searchTerm) || 
+                    p.title.toLowerCase().includes(searchTerm) ||
                     p.excerpt.toLowerCase().includes(searchTerm) ||
-                    p.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                    p.tags.join(' ').toLowerCase().includes(searchTerm)
                 );
             }
             
             renderPosts(filtered);
         }
 
-        // Open Post Modal
+        function renderMoodGrid() {
+            const container = document.getElementById('mood-grid');
+            const moods = [...new Set(posts.map(p => p.mood))];
+            
+            container.innerHTML = '';
+            
+            moods.forEach(mood => {
+                const count = posts.filter(p => p.mood === mood).length;
+                const div = document.createElement('div');
+                div.className = `cursor-pointer bg-zinc-900/50 hover:bg-zinc-900 border border-white/10 rounded-3xl p-6 transition-all`;
+                div.innerHTML = `
+                    <div class="text-4xl mb-3">${getMoodEmoji(mood)}</div>
+                    <div class="font-semibold text-xl mb-1">${mood}</div>
+                    <div class="text-sm text-zinc-400">${count} stories</div>
+                `;
+                div.onclick = () => {
+                    currentMoodFilter = mood;
+                    currentCategoryFilter = 'All';
+                    document.getElementById('search-input').value = '';
+                    applyFilters();
+                    document.getElementById('journal').scrollIntoView({ behavior: 'smooth' });
+                };
+                container.appendChild(div);
+            });
+        }
+
+        function getMoodEmoji(mood) {
+            const map = {
+                'Melancholy': '🌫️',
+                'Nostalgia': '🕯️',
+                'Passion': '🔥',
+                'Tension': '⚡',
+                'Hope': '🌱',
+                'Mystery': '🌑'
+            };
+            return map[mood] || '✦';
+        }
+
         function openPostModal(postId) {
             const post = posts.find(p => p.id === postId);
             if (!post) return;
 
-            // Populate modal
             document.getElementById('modal-image').src = post.image;
             document.getElementById('modal-title').textContent = post.title;
             document.getElementById('modal-category').textContent = post.category;
+            document.getElementById('modal-mood').textContent = post.mood;
             document.getElementById('modal-date').textContent = post.date;
             document.getElementById('modal-readtime').textContent = post.readTime;
             document.getElementById('modal-content').innerHTML = post.content;
+            document.getElementById('modal-quote').innerHTML = `“${post.quote}”`;
 
-            // Tags
             const tagsContainer = document.getElementById('modal-tags');
             tagsContainer.innerHTML = post.tags.map(tag => 
-                `<span class="px-3 py-1 text-xs bg-white/5 rounded-full border border-white/10">${tag}</span>`
+                `<span class="px-4 py-1 text-xs bg-white/5 rounded-full border border-white/10">${tag}</span>`
             ).join('');
 
-            // Show modal
             const modal = document.getElementById('post-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
 
-            // Reset and start reading progress
-            initReadingProgress();
-            
-            // Store current post for sharing
             window.currentPost = post;
         }
 
@@ -601,152 +698,72 @@
             modal.classList.add('hidden');
         }
 
-        // Reading Progress Bar
-        function initReadingProgress() {
-            const progressBar = document.getElementById('reading-progress');
-            const content = document.getElementById('modal-content');
-            
-            progressBar.style.width = '0%';
-            
-            content.onscroll = () => {
-                const scrollTop = content.scrollTop;
-                const scrollHeight = content.scrollHeight - content.clientHeight;
-                const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-                progressBar.style.width = `${progress}%`;
-            };
-        }
-
-        // Share Functions
         function sharePost(platform) {
             if (!window.currentPost) return;
-            
             const url = window.location.href;
             const text = `${window.currentPost.title} — Lumora Journal`;
             
             let shareUrl = '';
-            
-            if (platform === 'twitter') {
-                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-            } else if (platform === 'linkedin') {
-                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-            }
+            if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+            if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
             
             window.open(shareUrl, '_blank');
         }
 
         function copyLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
+            navigator.clipboard.writeText(window.location.href).then(() => {
                 const toast = document.createElement('div');
-                toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-900 border border-white/20 px-5 py-2.5 rounded-2xl text-sm flex items-center gap-x-2`;
-                toast.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i> <span>Link copied to clipboard</span>`;
+                toast.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-zinc-900 border border-white/20 px-6 py-3 rounded-2xl text-sm flex items-center gap-x-3 z-[300]';
+                toast.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i> <span>Link copied beautifully.</span>`;
                 document.body.appendChild(toast);
-                
-                setTimeout(() => {
-                    toast.style.transition = 'all 0.3s';
-                    toast.style.opacity = '0';
-                    setTimeout(() => toast.remove(), 300);
-                }, 2200);
+                setTimeout(() => { toast.style.transition = 'all .3s'; toast.style.opacity = '0'; setTimeout(() => toast.remove(), 200); }, 2200);
             });
         }
 
-        // Newsletter
-        function subscribeNewsletter() {
-            const emailInput = document.getElementById('newsletter-email');
-            if (!emailInput.value) return;
-            
-            const container = emailInput.parentElement;
-            
-            container.innerHTML = `
-                <div class="flex-1 flex items-center justify-center gap-x-3 py-3.5 text-emerald-400 font-medium">
-                    <i class="fa-solid fa-check-circle"></i> 
-                    <span>Thank you! You're now part of the story.</span>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                container.innerHTML = `
-                    <input type="email" id="newsletter-email" placeholder="your@email.com" 
-                           class="flex-1 bg-white/5 border border-white/10 px-5 py-3.5 rounded-2xl text-sm outline-none focus:border-[#C5A46E]">
-                    <button onclick="subscribeNewsletter()" 
-                            class="px-8 py-3.5 bg-[#C5A46E] hover:bg-amber-600 transition-all text-[#111113] font-semibold rounded-2xl whitespace-nowrap">
-                        Subscribe
-                    </button>
-                `;
-            }, 4500);
-        }
-
-        // Theme Toggle (Light/Dark)
         function toggleTheme() {
             const body = document.body;
             const icon = document.getElementById('theme-icon');
             
-            if (body.classList.contains('light-mode')) {
-                body.classList.remove('light-mode');
+            if (body.classList.contains('light')) {
+                body.classList.remove('light');
                 icon.classList.replace('fa-sun', 'fa-moon');
-                body.style.background = '';
+                body.style.background = '#0a0a0c';
+                body.style.color = '';
             } else {
-                body.classList.add('light-mode');
+                body.classList.add('light');
                 icon.classList.replace('fa-moon', 'fa-sun');
                 body.style.background = '#f8f1e3';
                 body.style.color = '#222';
             }
         }
 
-        // Mobile Menu (Simple)
-        function toggleMobileMenu() {
-            alert('Mobile menu would open here in full version. For now, use desktop or scroll to sections.');
-        }
-
-        // Search + Filter Listeners
-        function initSearchAndFilters() {
-            const searchInput = document.getElementById('search-input');
-            
-            searchInput.addEventListener('input', () => {
-                filterPosts();
-            });
-            
-            // Keyboard shortcut for search
-            document.addEventListener('keydown', (e) => {
-                if (e.key === '/' && document.activeElement.tagName === 'BODY') {
-                    e.preventDefault();
-                    searchInput.focus();
-                }
+        function applySearch() {
+            const input = document.getElementById('search-input');
+            input.addEventListener('input', () => {
+                applyFilters();
             });
         }
 
-        // Initialize Everything
         function initializeSite() {
             initializeTailwind();
             initNavbar();
             
-            renderFeaturedPosts();
             renderCategoryFilters();
-            renderPosts();
-            initSearchAndFilters();
+            renderMoodFilters();
+            renderMoodGrid();
+            renderPosts(posts);
+            applySearch();
             
-            // Make first category active
+            // Set initial active states
             setTimeout(() => {
-                const firstBtn = document.querySelector('#category-filters button');
-                if (firstBtn) firstBtn.classList.add('active', 'border-[#C5A46E]', 'bg-[#C5A46E]', 'text-[#111113]');
-            }, 100);
-            
-            // Easter egg: Press "?" to show all posts
-            document.addEventListener('keypress', (e) => {
-                if (e.key === '?') {
-                    document.getElementById('search-input').value = '';
-                    currentFilter = 'All';
-                    renderPosts(posts);
-                }
-            });
-            
-            console.log('%c[Lumora Journal] Professional blog site initialized successfully.', 'color:#666');
+                const firstCat = document.querySelector('#category-filters button');
+                if (firstCat) firstCat.classList.add('active', 'border-[#C5A46E]', 'bg-[#C5A46E]', 'text-[#111113]');
+            }, 80);
+
+            console.log('%c[Lumora Journal] Insane cinematic archive initialized.', 'color:#555');
         }
 
-        // Boot the site
         window.onload = initializeSite;
-        
-        // Bonus: Make posts globally accessible for future editing
         window.LUMORA_POSTS = posts;
     </script>
 </body>
