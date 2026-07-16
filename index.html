@@ -14,7 +14,6 @@
         
         .post-card {
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
         .post-card:hover {
             transform: translateY(-16px) scale(1.03);
@@ -31,23 +30,13 @@
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
         .chapter-card:hover {
-            transform: translateX(12px) scale(1.01);
+            transform: translateX(10px) scale(1.01);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-        }
-
-        .section-header {
-            font-size: 2.1rem;
-            font-weight: 700;
-            letter-spacing: -0.04em;
         }
 
         .nav-tab.active {
             border-bottom: 3px solid #111113;
             font-weight: 600;
-        }
-
-        .light-novel-card {
-            background: linear-gradient(to bottom, #fff, #f8f7f4);
         }
     </style>
 </head>
@@ -69,7 +58,7 @@
                 </div>
 
                 <div class="w-80">
-                    <input id="search-input" type="text" placeholder="Search stories or chapters..." 
+                    <input id="search-input" type="text" placeholder="Search stories..." 
                            class="w-full border border-zinc-300 rounded-full px-5 py-2.5 text-sm focus:outline-none">
                 </div>
             </div>
@@ -90,115 +79,112 @@
         </div>
     </div>
 
-    <!-- VISUAL STORYTELLING TAB - Japanese Light Novel -->
+    <!-- VISUAL STORYTELLING TAB - Full Kage no Hana -->
     <div id="visual-tab" class="hidden max-w-6xl mx-auto px-6 py-12">
         <div class="text-center mb-10">
             <span class="text-xs tracking-[3px] text-zinc-500">VISUAL STORYTELLING</span>
             <h2 class="heading text-6xl tracking-tighter mt-2">Kage no Hana</h2>
-            <p class="text-xl text-zinc-600 mt-2">影の花 — An Original Japanese Light Novel</p>
+            <p class="text-xl text-zinc-600">影の花 — An Original Japanese Light Novel</p>
         </div>
 
+        <!-- Synopsis -->
         <div class="bg-white rounded-3xl p-8 mb-10 border">
-            <div class="max-w-3xl">
-                <p class="text-zinc-600 text-lg">In a town where emotions bloom as flowers only she can see, a quiet girl named Aiko discovers that some shadows smile back. This is her story.</p>
-            </div>
+            <h3 class="font-semibold text-xl mb-3">Synopsis</h3>
+            <p class="text-zinc-600">In the quiet town of Mizukage, emotions do not stay hidden inside the heart. They bloom as flowers only Aiko can see — radiant sunflowers of joy, fragile bluebells of sorrow, fierce camellias of anger.</p>
+            <p class="text-zinc-600 mt-3">Then one ordinary afternoon, she notices something new. Some shadows smile back.</p>
+            <p class="text-zinc-600 mt-3">This is the story of Aiko and Ren, and the legendary <span class="font-semibold">Kage no Hana</span> — the Shadow Flower that blooms only where light and darkness learn to hold each other.</p>
         </div>
 
-        <!-- Chapters Grid -->
+        <!-- Chapters -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <!-- Chapter 1 -->
-            <div onclick="readChapter(1)" class="chapter-card light-novel-card border rounded-3xl overflow-hidden cursor-pointer">
-                <img src="https://picsum.photos/id/1005/800/500" class="w-full h-72 object-cover" alt="Aiko - The girl who sees emotional flowers">
+            <div onclick="readFullChapter(1)" class="chapter-card bg-white border rounded-3xl overflow-hidden cursor-pointer">
+                <img src="https://picsum.photos/id/1005/800/500" class="w-full h-72 object-cover" alt="Chapter 1">
                 <div class="p-7">
-                    <div class="flex items-center gap-x-3 mb-2">
-                        <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 01</span>
-                    </div>
-                    <h3 class="text-2xl font-semibold tracking-tight mb-3">The Girl Who Saw Shadows</h3>
-                    <p class="text-zinc-600 text-sm line-clamp-3">In Hikarimachi, Aiko could see flowers blooming from people's chests — beautiful, dark flowers that showed their hidden emotions.</p>
+                    <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 01</span>
+                    <h3 class="text-2xl font-semibold tracking-tight mt-3 mb-2">Hana no Machi (The Town of Flowers)</h3>
+                    <p class="text-sm text-zinc-600 line-clamp-3">Aiko’s footsteps were always soft. She preferred it that way. The less attention she drew, the easier it was to watch the flowers...</p>
                 </div>
             </div>
 
             <!-- Chapter 2 -->
-            <div onclick="readChapter(2)" class="chapter-card light-novel-card border rounded-3xl overflow-hidden cursor-pointer">
-                <img src="https://picsum.photos/id/1011/800/500" class="w-full h-72 object-cover" alt="Ren - The boy with the smiling shadow">
+            <div onclick="readFullChapter(2)" class="chapter-card bg-white border rounded-3xl overflow-hidden cursor-pointer">
+                <img src="https://picsum.photos/id/1011/800/500" class="w-full h-72 object-cover" alt="Chapter 2">
                 <div class="p-7">
-                    <div class="flex items-center gap-x-3 mb-2">
-                        <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 02</span>
-                    </div>
-                    <h3 class="text-2xl font-semibold tracking-tight mb-3">The Shadow That Smiled</h3>
-                    <p class="text-zinc-600 text-sm line-clamp-3">One evening she met Ren. His shadow had no flower. Instead, it smiled at her when no one else was looking. His silence was deeper than the night.</p>
+                    <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 02</span>
+                    <h3 class="text-2xl font-semibold tracking-tight mt-3 mb-2">Kage no Egao (The Shadow’s Smile)</h3>
+                    <p class="text-sm text-zinc-600 line-clamp-3">After class, Aiko felt him before she heard him. “You saw it,” a quiet voice said behind her...</p>
                 </div>
             </div>
 
             <!-- Chapter 3 -->
-            <div onclick="readChapter(3)" class="chapter-card light-novel-card border rounded-3xl overflow-hidden cursor-pointer">
-                <img src="https://picsum.photos/id/1009/800/500" class="w-full h-72 object-cover" alt="Aiko discovering Ren's hidden pain">
+            <div onclick="readFullChapter(3)" class="chapter-card bg-white border rounded-3xl overflow-hidden cursor-pointer">
+                <img src="https://picsum.photos/id/1009/800/500" class="w-full h-72 object-cover" alt="Chapter 3">
                 <div class="p-7">
-                    <div class="flex items-center gap-x-3 mb-2">
-                        <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 03</span>
-                    </div>
-                    <h3 class="text-2xl font-semibold tracking-tight mb-3">Flowers That Cry</h3>
-                    <p class="text-zinc-600 text-sm line-clamp-3">When Aiko finally touched his hand, she understood. His flower wasn't missing — it was buried deep inside his chest, crying silently for years.</p>
+                    <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 03</span>
+                    <h3 class="text-2xl font-semibold tracking-tight mt-3 mb-2">Kareta Hana (Withering Flowers)</h3>
+                    <p class="text-sm text-zinc-600 line-clamp-3">At first the changes were small. The old woman’s peonies began to brown at the edges...</p>
                 </div>
             </div>
 
-            <!-- Chapter 4 (New) -->
-            <div onclick="readChapter(4)" class="chapter-card light-novel-card border rounded-3xl overflow-hidden cursor-pointer">
-                <img src="https://picsum.photos/id/1016/800/500" class="w-full h-72 object-cover" alt="The night the cherry blossoms returned">
+            <!-- Chapter 4 -->
+            <div onclick="readFullChapter(4)" class="chapter-card bg-white border rounded-3xl overflow-hidden cursor-pointer">
+                <img src="https://picsum.photos/id/1016/800/500" class="w-full h-72 object-cover" alt="Chapter 4">
                 <div class="p-7">
-                    <div class="flex items-center gap-x-3 mb-2">
-                        <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 04</span>
-                    </div>
-                    <h3 class="text-2xl font-semibold tracking-tight mb-3">The Night the Blossoms Returned</h3>
-                    <p class="text-zinc-600 text-sm line-clamp-3">For the first time in ten years, the cherry blossoms bloomed in summer. Aiko finally understood what Ren had been protecting all along.</p>
+                    <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 04</span>
+                    <h3 class="text-2xl font-semibold tracking-tight mt-3 mb-2">Chiisana Egao (Small Smiles)</h3>
+                    <p class="text-sm text-zinc-600 line-clamp-3">They started with one person at a time. Mika, the girl whose violet flower had almost completely wilted...</p>
                 </div>
             </div>
 
-            <!-- Chapter 5 (New) -->
-            <div onclick="readChapter(5)" class="chapter-card light-novel-card border rounded-3xl overflow-hidden cursor-pointer">
-                <img src="https://picsum.photos/id/160/800/500" class="w-full h-72 object-cover" alt="Aiko's final choice">
+            <!-- Chapter 5 -->
+            <div onclick="readFullChapter(5)" class="chapter-card bg-white border rounded-3xl overflow-hidden cursor-pointer">
+                <img src="https://picsum.photos/id/160/800/500" class="w-full h-72 object-cover" alt="Chapter 5">
                 <div class="p-7">
-                    <div class="flex items-center gap-x-3 mb-2">
-                        <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 05</span>
-                    </div>
-                    <h3 class="text-2xl font-semibold tracking-tight mb-3">The Flower That Chose to Bloom</h3>
-                    <p class="text-zinc-600 text-sm line-clamp-3">In the end, Aiko made a choice that would change both their lives forever. Some flowers only bloom when you stop being afraid of the dark.</p>
+                    <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 05</span>
+                    <h3 class="text-2xl font-semibold tracking-tight mt-3 mb-2">Yami no Naka e (Into the Darkness)</h3>
+                    <p class="text-sm text-zinc-600 line-clamp-3">On the night of the summer festival, Aiko and Ren returned to the shrine...</p>
                 </div>
             </div>
 
-        </div>
+            <!-- Chapter 6 -->
+            <div onclick="readFullChapter(6)" class="chapter-card bg-white border rounded-3xl overflow-hidden cursor-pointer">
+                <img src="https://picsum.photos/id/1005/800/500" class="w-full h-72 object-cover" alt="Chapter 6">
+                <div class="p-7">
+                    <span class="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">CHAPTER 06</span>
+                    <h3 class="text-2xl font-semibold tracking-tight mt-3 mb-2">Kage no Hana (Shadow Flower)</h3>
+                    <p class="text-sm text-zinc-600 line-clamp-3">When Aiko opened her eyes, she was back under the torii gate. The black vines were gone...</p>
+                </div>
+            </div>
 
-        <div class="text-center mt-10 text-sm text-zinc-500">
-            An original story created for Lumora Journal • More chapters coming soon
         </div>
     </div>
 
-    <!-- Chapter Reading Modal -->
+    <!-- Full Chapter Modal -->
     <div id="chapter-modal" onclick="if (event.target.id === 'chapter-modal') closeChapterModal()" 
          class="hidden fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4">
-        <div onclick="event.stopImmediatePropagation()" class="bg-white max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl">
-            <div class="p-10">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white max-w-3xl w-full rounded-3xl overflow-hidden shadow-2xl max-h-[90dvh] flex flex-col">
+            <div class="p-8 overflow-y-auto flex-1">
                 <div class="flex justify-between items-center mb-6">
                     <div id="chapter-number" class="px-5 py-1.5 bg-zinc-900 text-white text-xs font-semibold rounded-full w-fit"></div>
                     <button onclick="closeChapterModal()" class="text-3xl text-zinc-400 hover:text-black">&times;</button>
                 </div>
                 <h2 id="chapter-title" class="heading text-4xl tracking-tight mb-8"></h2>
-                <div id="chapter-content" class="prose text-[15.5px] leading-relaxed text-zinc-700 max-w-none"></div>
+                <div id="chapter-content" class="prose text-[15.5px] leading-relaxed text-zinc-700"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // 18 Unique Posts - All Different Topics
         let posts = [
             { id: 1, title: "The Weight of Silence in Episode 3", excerpt: "Why we chose 47 seconds of pure silence and how it broke everyone.", category: "Behind the Scenes", date: "July 14, 2026", readTime: "14 min", image: "https://picsum.photos/id/1015/900/600", content: "In the writers’ room we fought for three hours. In the end we removed the line completely. The silence became the most powerful moment." },
-            { id: 2, title: "Why We Left the Love Unfinished", excerpt: "The deliberate choice that defined our entire series from the first episode.", category: "Storytelling", date: "July 10, 2026", readTime: "11 min", image: "https://picsum.photos/id/160/900/600", content: "We could have given closure. We chose longing instead. That ache is what makes the story live forever in the audience's heart." },
+            { id: 2, title: "Why We Left the Love Unfinished", excerpt: "The deliberate choice that defined our entire series from the first episode.", category: "Storytelling", date: "July 10, 2026", readTime: "11 min", image: "https://picsum.photos/id/160/900/600", content: "We could have given closure. We chose longing instead. That ache is what makes the story live forever." },
             { id: 3, title: "Turkish Drama Meets Pakistani Soul", excerpt: "How two completely different storytelling traditions created something brand new.", category: "Culture", date: "July 12, 2026", readTime: "12 min", image: "https://picsum.photos/id/201/900/600", content: "Turkish poetry met the raw emotional weight of South Asian family stories. The result was honest and unforgettable." },
-            { id: 4, title: "Writing Characters That Refuse to Be Liked", excerpt: "The art of creating complicated, difficult, and deeply human characters.", category: "Craft", date: "July 8, 2026", readTime: "9 min", image: "https://picsum.photos/id/1005/900/600", content: "We don’t write perfect people. We write people carrying things they don’t know how to put down. That’s what makes them magnetic." },
+            { id: 4, title: "Writing Characters That Refuse to Be Liked", excerpt: "The art of creating complicated, difficult, and deeply human characters.", category: "Craft", date: "July 8, 2026", readTime: "9 min", image: "https://picsum.photos/id/1005/900/600", content: "We don’t write perfect people. We write people carrying things they don’t know how to put down." },
             { id: 5, title: "The Color Theory of Longing", excerpt: "How we use light and color as our second language to tell emotional truth.", category: "Visual Storytelling", date: "July 5, 2026", readTime: "8 min", image: "https://picsum.photos/id/251/900/600", content: "Warm tones for memory. Cold shadows for the present they can’t escape. Color became our most honest tool." },
             { id: 6, title: "The Night We Cried in the Editing Room", excerpt: "The raw moment when the story became too real for everyone in the room.", category: "Behind the Scenes", date: "July 3, 2026", readTime: "7 min", image: "https://picsum.photos/id/29/900/600", content: "We stopped the timeline. No one spoke for almost a minute. We all knew this scene was too honest to cut." },
-            { id: 7, title: "Love That Destroys and Rebuilds", excerpt: "Writing romance that actually changes who the characters become.", category: "Storytelling", date: "June 30, 2026", readTime: "10 min", image: "https://picsum.photos/id/160/900/600", content: "Easy love is forgettable. The kind that breaks people and then puts them back together — that’s the only love worth telling." },
+            { id: 7, title: "Love That Destroys and Rebuilds", excerpt: "Writing romance that actually changes who the characters become.", category: "Storytelling", date: "June 30, 2026", readTime: "10 min", image: "https://picsum.photos/id/160/900/600", content: "Easy love is forgettable. The kind that breaks people and then puts them back together." },
             { id: 8, title: "Building Tension Without Explosions", excerpt: "The slow-burn technique that makes silence louder than any scream.", category: "Craft", date: "June 28, 2026", readTime: "8 min", image: "https://picsum.photos/id/201/900/600", content: "We learned that the most powerful tension lives in what is not said between family members." },
             { id: 9, title: "The Family Dinner That Changed Everything", excerpt: "One ordinary dinner scene became the emotional heart of the entire series.", category: "Behind the Scenes", date: "June 25, 2026", readTime: "6 min", image: "https://picsum.photos/id/1005/900/600", content: "We cried while writing it. The actors cried while filming it. That’s how we knew it was real." },
             { id: 10, title: "When Spaces Become Characters", excerpt: "Treating the old family home as one of the most important characters in our story.", category: "Visual Storytelling", date: "June 22, 2026", readTime: "7 min", image: "https://picsum.photos/id/251/900/600", content: "The house remembers every betrayal, every forgiveness. We gave it a soul." },
@@ -209,29 +195,23 @@
             { id: 15, title: "Lighting as Emotional Language", excerpt: "Using light and shadow to communicate what words cannot express.", category: "Visual Storytelling", date: "June 10, 2026", readTime: "6 min", image: "https://picsum.photos/id/251/900/600", content: "Warm light for memory. Harsh light for confrontation. We let light do the heavy emotional lifting." },
             { id: 16, title: "The Stories We Almost Didn’t Tell", excerpt: "The episodes and scenes that were almost too personal to share.", category: "Behind the Scenes", date: "June 8, 2026", readTime: "7 min", image: "https://picsum.photos/id/29/900/600", content: "Some stories were too close to home. We told them anyway. Those became the most powerful ones." },
             { id: 17, title: "Creating Believable Family Tension", excerpt: "How we built relationships that feel lived-in, messy, and completely real.", category: "Craft", date: "June 5, 2026", readTime: "9 min", image: "https://picsum.photos/id/1005/900/600", content: "Real families are complicated. We stopped writing perfect families and started writing real ones." },
-            { id: 18, title: "The Future of Unfinished Stories", excerpt: "Where Lumora is going and why we will never give complete closure.", category: "Storytelling", date: "June 3, 2026", readTime: "8 min", image: "https://picsum.photos/id/201/900/600", content: "Our stories will always leave something unfinished. Because life doesn’t finish. And we want the audience to feel that truth." }
+            { id: 18, title: "The Future of Unfinished Stories", excerpt: "Where Lumora is going and why we will never give complete closure.", category: "Storytelling", date: "June 3, 2026", readTime: "8 min", image: "https://picsum.photos/id/201/900/600", content: "Our stories will always leave something unfinished. Because life doesn’t finish." }
         ]
 
         function renderPosts(filtered) {
             const container = document.getElementById('posts-grid');
             container.innerHTML = '';
-
-            filtered.forEach((post, index) => {
+            filtered.forEach(post => {
                 const card = document.createElement('div');
                 card.className = `post-card bg-white border border-zinc-200 rounded-3xl overflow-hidden cursor-pointer`;
-                card.style.animationDelay = `${index * 50}ms`;
-                
                 card.innerHTML = `
-                    <div class="relative overflow-hidden">
-                        <img src="${post.image}" class="w-full h-56 object-cover" alt="">
-                        <div class="absolute top-4 left-4">
-                            <span class="px-3.5 py-1 text-xs font-semibold bg-white/95 rounded-full shadow-sm">${post.category}</span>
-                        </div>
-                    </div>
+                    <img src="${post.image}" class="w-full h-56 object-cover" alt="">
                     <div class="p-6">
+                        <div class="flex items-center gap-x-2 mb-3">
+                            <span class="text-xs font-semibold px-3 py-1 bg-zinc-100 rounded-full">${post.category}</span>
+                        </div>
                         <h3 class="font-semibold text-[21px] leading-tight tracking-tight mb-3">${post.title}</h3>
                         <p class="text-sm text-zinc-600 line-clamp-3 mb-5">${post.excerpt}</p>
-                        
                         <div class="flex items-center justify-between text-xs text-zinc-500">
                             <span>${post.date}</span>
                             <span class="font-medium">${post.readTime}</span>
@@ -254,10 +234,8 @@
                 btn.textContent = cat;
                 btn.onclick = () => {
                     filterPosts(cat);
-                    document.querySelectorAll('#category-filters button').forEach(b => {
-                        b.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-900');
-                        if (b.textContent === cat) b.classList.add('bg-zinc-900', 'text-white', 'border-zinc-900');
-                    });
+                    document.querySelectorAll('#category-filters button').forEach(b => b.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-900'));
+                    btn.classList.add('bg-zinc-900', 'text-white', 'border-zinc-900');
                 };
                 container.appendChild(btn);
             });
@@ -272,52 +250,28 @@
         function openPostModal(postId) {
             const post = posts.find(p => p.id === postId);
             if (!post) return;
-            
-            const modalContent = `
-                <div class="p-8">
-                    <div class="mb-4">
-                        <span class="px-4 py-1 text-xs font-semibold bg-zinc-100 rounded-full">${post.category}</span>
-                    </div>
-                    <h2 class="heading text-4xl tracking-tight mb-4">${post.title}</h2>
-                    <div class="text-sm text-zinc-500 mb-6">${post.date} • ${post.readTime}</div>
-                    <div class="prose text-[15.5px] leading-relaxed">${post.content}</div>
-                </div>
-            `;
-            
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4';
-            modal.innerHTML = modalContent;
-            modal.onclick = () => modal.remove();
-            document.body.appendChild(modal);
+            alert(`${post.title}\n\n${post.content}`);
         }
 
-        function readChapter(chapterNum) {
+        function readFullChapter(chapterNum) {
             const modal = document.getElementById('chapter-modal');
             const titleEl = document.getElementById('chapter-title');
             const contentEl = document.getElementById('chapter-content');
             const numEl = document.getElementById('chapter-number');
 
-            if (chapterNum === 1) {
-                numEl.textContent = 'CHAPTER 01';
-                titleEl.textContent = 'The Girl Who Saw Shadows';
-                contentEl.innerHTML = `<p>In the quiet town of Hikarimachi, there lived a girl named Aiko who could see things others could not.</p><p>She saw flowers blooming from people's chests — dark, beautiful flowers that represented their hidden emotions. No one else could see them. Only her.</p><p>That was both her curse and her greatest gift.</p>`;
-            } else if (chapterNum === 2) {
-                numEl.textContent = 'CHAPTER 02';
-                titleEl.textContent = 'The Shadow That Smiled';
-                contentEl.innerHTML = `<p>One evening, Aiko met a boy whose shadow had no flower. Instead, it smiled at her when no one was looking.</p><p>His name was Ren. He carried a silence so deep that even the wind seemed afraid to touch him. His eyes held stories he would never tell.</p>`;
-            } else if (chapterNum === 3) {
-                numEl.textContent = 'CHAPTER 03';
-                titleEl.textContent = 'Flowers That Cry';
-                contentEl.innerHTML = `<p>When Aiko finally gathered the courage to touch Ren's hand, she saw the truth.</p><p>His flower wasn't missing. It was buried deep inside his chest, crying silently for years. That was the moment everything changed.</p>`;
-            } else if (chapterNum === 4) {
-                numEl.textContent = 'CHAPTER 04';
-                titleEl.textContent = 'The Night the Blossoms Returned';
-                contentEl.innerHTML = `<p>For the first time in ten years, the cherry blossoms bloomed in the middle of summer.</p><p>Aiko finally understood what Ren had been protecting all along — and what she had to do next.</p>`;
-            } else if (chapterNum === 5) {
-                numEl.textContent = 'CHAPTER 05';
-                titleEl.textContent = 'The Flower That Chose to Bloom';
-                contentEl.innerHTML = `<p>In the end, Aiko made a choice that would change both their lives forever.</p><p>Some flowers only bloom when you stop being afraid of the dark. That night, she chose to bloom.</p>`;
-            }
+            const chapters = {
+                1: { num: "CHAPTER 01", title: "Hana no Machi (The Town of Flowers)", content: `In the quiet town of Mizukage, Aiko’s footsteps were always soft. She preferred it that way. The less attention she drew, the easier it was to watch the flowers.<br><br>On the way to school, the old woman at the vegetable stand wore a crown of proud pink peonies. The tired salaryman rushing for the bus trailed drooping gray lilies. Two elementary school boys chasing each other left explosions of orange marigolds in their wake.<br><br>So many colors today…<br><br>Aiko adjusted her school bag and kept walking. No one else saw them. No one else ever had.` },
+                2: { num: "CHAPTER 02", title: "Kage no Egao (The Shadow’s Smile)", content: `After class, Aiko stayed at her desk longer than usual.<br><br>“You saw it,” a quiet voice said behind her.<br><br>Aiko turned. Ren stood there, looking at her with calm dark eyes.<br><br>“Saw what?” she managed.<br><br>“The smile,” he said simply. “My shadow smiled at you.”<br><br>Her heart pounded. For years she had been the only one who saw impossible things.<br><br>Ren glanced around. “I can’t see the flowers like you do. But shadows… they talk to me sometimes. You’re the first person who’s ever seen one of them smile.”` },
+                3: { num: "CHAPTER 03", title: "Kareta Hana (Withering Flowers)", content: `At first the changes were small.<br><br>The old woman’s peonies began to brown at the edges. The salaryman’s gray lilies drooped lower every morning.<br><br>By the third week, Aiko could see it clearly — something was wrong with the entire town’s garden of hearts.<br><br>At the old shrine, behind the main building where almost no light reached, they found it.<br><br>A single flower unlike any Aiko had ever seen. Its petals were black as midnight, edged with silver that seemed to drink the surrounding light.` },
+                4: { num: "CHAPTER 04", title: "Chiisana Egao (Small Smiles)", content: `They started with one person at a time.<br><br>Mika, the girl whose violet flower had almost completely wilted, sat alone on the roof during lunch. Aiko sat beside her.<br><br>“You don’t have to talk if you don’t want to,” Aiko said quietly.<br><br>It took three days. On the fourth, Mika finally spoke about her parents fighting every night.<br><br>As the words left her, the violet petals slowly straightened. Color returned.<br><br>Across the roof, Ren’s shadow gave a small, proud thumbs-up.` },
+                5: { num: "CHAPTER 05", title: "Yami no Naka e (Into the Darkness)", content: `On the night of the summer festival, the streets felt gray. Lanterns glowed but no one’s eyes did.<br><br>Aiko and Ren slipped away and returned to the shrine.<br><br>The Kage no Hana had grown enormous. Its black petals blotted out the moon.<br><br>Ren took Aiko’s hand.<br><br>“If we go in together,” he said, “my shadow can guide us. Your flowers can show us the truth.”<br><br>They stepped into the deepest shadow beneath the torii gate.` },
+                6: { num: "CHAPTER 06", title: "Kage no Hana (Shadow Flower)", content: `When Aiko opened her eyes, she was back under the torii gate.<br><br>The black vines were gone.<br><br>All across Mizukage, color was returning.<br><br>Aiko turned to Ren. His shadow was dancing happily around his feet.<br><br>She looked down at her own shadow. For the first time, she saw it clearly smiling back at her — not shyly, but fully, joyfully.<br><br>And around her feet bloomed a single perfect flower. Its petals were the color of midnight and starlight intertwined.` }
+            };
+
+            const ch = chapters[chapterNum];
+            numEl.textContent = ch.num;
+            titleEl.textContent = ch.title;
+            contentEl.innerHTML = ch.content;
 
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -344,18 +298,14 @@
             const input = document.getElementById('search-input');
             input.addEventListener('input', () => {
                 const term = input.value.toLowerCase();
-                const filtered = posts.filter(p => 
-                    p.title.toLowerCase().includes(term) || 
-                    p.excerpt.toLowerCase().includes(term)
-                );
+                const filtered = posts.filter(p => p.title.toLowerCase().includes(term) || p.excerpt.toLowerCase().includes(term));
                 renderPosts(filtered);
             });
 
-            // Default tab
             document.getElementById('journal-tab').classList.remove('hidden');
             document.getElementById('visual-tab').classList.add('hidden');
 
-            console.log('%c[Lumora Journal] Enhanced with 5-chapter light novel + 18 unique posts + stronger animations.', 'color:#666');
+            console.log('%c[Lumora Journal] Full Kage no Hana light novel integrated.', 'color:#666');
         }
 
         window.onload = initializeSite;
