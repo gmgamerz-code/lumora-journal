@@ -1,7 +1,7 @@
-# Lumora Journal - Updated Version
+# Lumora Journal - Final Enhanced Version
 
-- Unique non-repeating posts with different topics
-- Unique attractive layout with spring animations
-- Dedicated Visual Storytelling tab with original Japanese light novel "Kage no Hana"
-- Multi-chapter story with custom chapter names, descriptions, and images
-- Clean modern blog style
+- 18 unique non-repeating posts with different topics
+- Much stronger animations on cards and chapters
+- Original 5-chapter Japanese light novel "Kage no Hana" with anime-style storytelling
+- Unique attractive layout
+- Dedicated Visual Storytelling tab with chapter cards and reading modal
