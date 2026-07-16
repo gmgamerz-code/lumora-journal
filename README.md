@@ -1,7 +1,7 @@
-# Lumora Journal - Enhanced Version
+# Lumora Journal - Updated Version
 
-- Unique posts on completely different topics (no repetition)
-- Heavy cool animations on cards, filters, modal
-- Two tabs: Journal + Crypto Watch
-- Live updating pie chart for Bitcoin + other cryptocurrencies (updates every 5 seconds)
-- Clean attractive blog style
+- Unique non-repeating posts with different topics
+- Unique attractive layout with spring animations
+- Dedicated Visual Storytelling tab with original Japanese light novel "Kage no Hana"
+- Multi-chapter story with custom chapter names, descriptions, and images
+- Clean modern blog style

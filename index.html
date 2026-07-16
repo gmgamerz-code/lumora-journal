@@ -3,66 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumora Journal • Stories &amp; Craft</title>
+    <title>Lumora Journal • Unique Stories</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
         
-        body { font-family: 'Inter', system_ui, sans-serif; }
+        body { font-family: 'Inter', system_ui, sans-serif; background: #f8f7f4; }
         .heading { font-family: 'Playfair Display', Georgia, serif; }
         
         .post-card {
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            animation: fadeInUp 0.6s ease forwards;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .post-card:hover {
-            transform: translateY(-12px) scale(1.01);
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+            transform: translateY(-14px) scale(1.02);
+            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.2);
         }
-        
         .post-card img {
-            transition: transform 0.6s ease;
+            transition: transform 0.7s ease;
         }
         .post-card:hover img {
-            transform: scale(1.08);
+            transform: scale(1.1);
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .unique-layout {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgb(0 0 0 / 0.08);
         }
 
-        .filter-btn {
-            transition: all 0.3s ease;
+        .chapter-card {
+            transition: all 0.4s ease;
         }
-        .filter-btn.active {
-            background-color: #111113;
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .modal {
-            animation: modalEnter 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        .chapter-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
 
         .section-header {
-            font-size: 1.65rem;
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
         }
 
-        .nav-tab {
-            transition: all 0.3s ease;
-        }
         .nav-tab.active {
             border-bottom: 3px solid #111113;
             font-weight: 600;
-        }
-
-        .crypto-update {
-            animation: pulse 2s infinite;
         }
     </style>
 </head>
@@ -72,24 +58,20 @@
         <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
             <div class="flex items-center gap-x-3">
                 <div class="w-9 h-9 bg-zinc-900 rounded-2xl flex items-center justify-center">
-                    <span class="text-white font-bold text-2xl tracking-tighter">L</span>
+                    <span class="text-white font-bold text-2xl">L</span>
                 </div>
                 <span class="font-bold text-3xl tracking-tighter">Lumora Journal</span>
             </div>
 
-            <div class="flex items-center gap-x-8">
-                <!-- Tabs -->
+            <div class="flex items-center gap-x-6">
                 <div class="flex items-center gap-x-1 text-sm font-medium">
                     <button onclick="switchTab('journal')" class="nav-tab active px-5 py-2" id="tab-journal">Journal</button>
-                    <button onclick="switchTab('crypto')" class="nav-tab px-5 py-2" id="tab-crypto">Crypto Watch</button>
+                    <button onclick="switchTab('visual')" class="nav-tab px-5 py-2" id="tab-visual">Visual Storytelling</button>
                 </div>
 
                 <div class="w-72">
-                    <div class="relative">
-                        <input id="search-input" type="text" placeholder="Search stories..." 
-                               class="w-full border border-zinc-300 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:border-zinc-400">
-                        <i class="fa-solid fa-search absolute right-4 top-3 text-zinc-400"></i>
-                    </div>
+                    <input id="search-input" type="text" placeholder="Search stories..." 
+                           class="w-full border border-zinc-300 rounded-full px-4 py-2.5 text-sm focus:outline-none">
                 </div>
             </div>
         </div>
@@ -97,144 +79,151 @@
 
     <!-- JOURNAL TAB -->
     <div id="journal-tab">
-        <!-- Hero -->
-        <div class="bg-white border-b">
-            <div class="max-w-5xl mx-auto px-6 py-16 text-center">
-                <h1 class="heading text-6xl tracking-tighter mb-4">Stories that stay with you.</h1>
-                <p class="text-xl text-zinc-600 max-w-md mx-auto">Behind the craft, emotion, and world of Lumora Pictures.</p>
-            </div>
-        </div>
-
-        <!-- Filters -->
         <div class="max-w-7xl mx-auto px-6 pt-10">
-            <div class="flex flex-wrap gap-2 mb-8" id="category-filters"></div>
-        </div>
+            <div class="flex items-end justify-between mb-8">
+                <div>
+                    <span class="text-xs tracking-[3px] text-zinc-500">THE ARCHIVE</span>
+                    <h1 class="heading text-6xl tracking-tighter">Unique Stories</h1>
+                </div>
+            </div>
 
-        <!-- Posts Grid -->
-        <div class="max-w-7xl mx-auto px-6 pb-16">
+            <div class="flex flex-wrap gap-2 mb-8" id="category-filters"></div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7" id="posts-grid"></div>
         </div>
     </div>
 
-    <!-- CRYPTO WATCH TAB -->
-    <div id="crypto-tab" class="hidden max-w-5xl mx-auto px-6 py-12">
-        <div class="text-center mb-10">
-            <h2 class="heading text-5xl tracking-tight mb-3">Crypto Watch</h2>
-            <p class="text-zinc-600">Live market overview • Updates every 5 seconds</p>
+    <!-- VISUAL STORYTELLING TAB (Japanese Light Novel Style) -->
+    <div id="visual-tab" class="hidden max-w-6xl mx-auto px-6 py-12">
+        <div class="text-center mb-12">
+            <span class="text-xs tracking-[3px] text-zinc-500">VISUAL STORYTELLING</span>
+            <h2 class="heading text-6xl tracking-tighter mt-2">Kage no Hana</h2>
+            <p class="text-xl text-zinc-600 mt-3">An original Japanese light novel • Created for Lumora Journal</p>
         </div>
 
-        <div class="bg-white rounded-3xl p-8 border shadow-sm">
-            <div class="flex justify-between items-center mb-6">
+        <!-- Story Info -->
+        <div class="bg-white rounded-3xl p-8 mb-10 border">
+            <div class="flex items-center gap-x-4 mb-6">
+                <div class="w-16 h-16 bg-zinc-900 rounded-2xl flex items-center justify-center text-white text-3xl font-bold">影</div>
                 <div>
-                    <div class="font-semibold text-xl">Market Distribution</div>
-                    <div class="text-sm text-emerald-600 crypto-update">● Live • Updating</div>
+                    <div class="font-semibold text-2xl">Kage no Hana (Shadow Flower)</div>
+                    <div class="text-zinc-500">A tale of memory, silence, and the flowers that bloom in darkness</div>
                 </div>
-                <div class="text-xs text-zinc-500">Last updated: <span id="last-updated"></span></div>
             </div>
-            
-            <div class="max-w-md mx-auto">
-                <canvas id="crypto-chart" width="400" height="400"></canvas>
+            <p class="text-zinc-600 max-w-3xl">In a quiet town where shadows remember what people forget, a young girl discovers she can see the "flowers" that grow from people's hidden emotions. This is her story.</p>
+        </div>
+
+        <!-- Chapters -->
+        <div class="space-y-6">
+            <!-- Chapter 1 -->
+            <div class="chapter-card bg-white border rounded-3xl p-8 flex gap-8">
+                <div class="flex-shrink-0">
+                    <img src="https://picsum.photos/id/1015/320/420" class="w-64 h-80 object-cover rounded-2xl shadow" alt="Chapter 1 - The Girl Who Saw Shadows">
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <span class="px-4 py-1 bg-zinc-100 text-xs font-semibold rounded-full">Chapter 01</span>
+                        <span class="text-sm text-zinc-500">The Girl Who Saw Shadows</span>
+                    </div>
+                    <h3 class="text-3xl font-semibold tracking-tight mb-4">The Girl Who Saw Shadows</h3>
+                    <div class="prose text-zinc-600">
+                        <p>In the quiet town of Hikarimachi, where the cherry blossoms fell like pink snow even in summer, there lived a girl named Aiko who could see things others could not.</p>
+                        <p>She saw flowers blooming from people's chests — dark, beautiful flowers that represented their hidden emotions. No one else could see them. Only her.</p>
+                    </div>
+                    <button onclick="readChapter(1)" class="mt-6 px-6 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-2xl hover:bg-black transition-colors">Read Chapter 1 →</button>
+                </div>
             </div>
 
-            <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div class="bg-zinc-50 p-4 rounded-2xl">
-                    <div class="text-emerald-600 font-semibold">Bitcoin</div>
-                    <div class="text-2xl font-semibold" id="btc-price">$67,420</div>
+            <!-- Chapter 2 -->
+            <div class="chapter-card bg-white border rounded-3xl p-8 flex gap-8">
+                <div class="flex-shrink-0">
+                    <img src="https://picsum.photos/id/160/320/420" class="w-64 h-80 object-cover rounded-2xl shadow" alt="Chapter 2 - The Shadow That Smiled">
                 </div>
-                <div class="bg-zinc-50 p-4 rounded-2xl">
-                    <div class="text-emerald-600 font-semibold">Ethereum</div>
-                    <div class="text-2xl font-semibold" id="eth-price">$3,420</div>
-                </div>
-                <div class="bg-zinc-50 p-4 rounded-2xl">
-                    <div class="text-emerald-600 font-semibold">Solana</div>
-                    <div class="text-2xl font-semibold" id="sol-price">$178</div>
-                </div>
-                <div class="bg-zinc-50 p-4 rounded-2xl">
-                    <div class="text-emerald-600 font-semibold">BNB</div>
-                    <div class="text-2xl font-semibold" id="bnb-price">$592</div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <span class="px-4 py-1 bg-zinc-100 text-xs font-semibold rounded-full">Chapter 02</span>
+                        <span class="text-sm text-zinc-500">The Shadow That Smiled</span>
+                    </div>
+                    <h3 class="text-3xl font-semibold tracking-tight mb-4">The Shadow That Smiled</h3>
+                    <div class="prose text-zinc-600">
+                        <p>One evening, Aiko met a boy whose shadow had no flower. Instead, it smiled at her when no one was looking. That was the day everything changed.</p>
+                        <p>His name was Ren. He carried a silence so deep that even the wind seemed afraid to touch him.</p>
+                    </div>
+                    <button onclick="readChapter(2)" class="mt-6 px-6 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-2xl hover:bg-black transition-colors">Read Chapter 2 →</button>
                 </div>
             </div>
+
+            <!-- Chapter 3 -->
+            <div class="chapter-card bg-white border rounded-3xl p-8 flex gap-8">
+                <div class="flex-shrink-0">
+                    <img src="https://picsum.photos/id/201/320/420" class="w-64 h-80 object-cover rounded-2xl shadow" alt="Chapter 3 - Flowers That Cry">
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <span class="px-4 py-1 bg-zinc-100 text-xs font-semibold rounded-full">Chapter 03</span>
+                        <span class="text-sm text-zinc-500">Flowers That Cry</span>
+                    </div>
+                    <h3 class="text-3xl font-semibold tracking-tight mb-4">Flowers That Cry</h3>
+                    <div class="prose text-zinc-600">
+                        <p>When Aiko finally touched Ren's hand, she saw the truth. His flower wasn't missing — it was buried deep inside his chest, crying silently for years.</p>
+                        <p>That night, the first real cherry blossom fell in Hikarimachi after ten long summers.</p>
+                    </div>
+                    <button onclick="readChapter(3)" class="mt-6 px-6 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-2xl hover:bg-black transition-colors">Read Chapter 3 →</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12 text-sm text-zinc-500">
+            More chapters coming soon • An original story for Lumora Journal
         </div>
     </div>
 
-    <!-- Post Modal -->
-    <div id="post-modal" onclick="if (event.target.id === 'post-modal') closeModal()" 
-         class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4">
-        <div onclick="event.stopImmediatePropagation()" 
-             class="bg-white w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl modal">
-            
-            <div class="p-8">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <span id="modal-category" class="px-4 py-1 text-xs font-semibold rounded-full bg-zinc-100"></span>
-                    </div>
-                    <button onclick="closeModal()" class="text-3xl text-zinc-400 hover:text-black">&times;</button>
+    <!-- Reading Modal for Chapters -->
+    <div id="chapter-modal" onclick="if (event.target.id === 'chapter-modal') closeChapterModal()" 
+         class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white max-w-2xl w-full rounded-3xl overflow-hidden">
+            <div class="p-10">
+                <div class="flex justify-between mb-6">
+                    <div id="chapter-number" class="text-sm font-semibold px-4 py-1 bg-zinc-100 rounded-full w-fit"></div>
+                    <button onclick="closeChapterModal()" class="text-3xl text-zinc-400 hover:text-black">&times;</button>
                 </div>
-
-                <h1 id="modal-title" class="heading text-5xl tracking-tight leading-none mb-6"></h1>
-                
-                <div class="flex items-center gap-x-4 text-sm text-zinc-500 mb-8">
-                    <span id="modal-date"></span>
-                    <span>•</span>
-                    <span id="modal-readtime"></span>
-                </div>
-
-                <div id="modal-content" class="prose max-w-none text-[15.5px] leading-relaxed"></div>
-            </div>
-
-            <div class="bg-zinc-50 px-8 py-5 flex justify-end">
-                <button onclick="closeModal()" class="px-8 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-2xl">Close</button>
+                <h2 id="chapter-title" class="heading text-4xl tracking-tight mb-6"></h2>
+                <div id="chapter-content" class="prose text-lg leading-relaxed text-zinc-700"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Tailwind
-        function initTailwind() {}
-
-        // Unique Posts - All Different Topics
         let posts = [
-            { id: 1, title: "The Weight of Silence in Episode 3", excerpt: "Why we chose 47 seconds of pure silence and how it broke everyone in the room.", category: "Behind the Scenes", date: "July 14, 2026", readTime: "14 min", image: "https://picsum.photos/id/1015/900/600", content: "In the writers’ room we fought for three hours. In the end we removed the line completely. The silence became the most powerful moment in the entire episode." },
-            { id: 2, title: "Why We Left the Love Unfinished", excerpt: "The deliberate choice that defined our entire series from the very first episode.", category: "Storytelling", date: "July 10, 2026", readTime: "11 min", image: "https://picsum.photos/id/160/900/600", content: "We could have given closure. We chose longing instead. In Turkish drama, the ache is the point. We brought that ache into our world." },
-            { id: 3, title: "Turkish Drama Meets Pakistani Soul", excerpt: "How two completely different storytelling traditions created something brand new.", category: "Culture", date: "July 12, 2026", readTime: "12 min", image: "https://picsum.photos/id/201/900/600", content: "Turkish dramas move like poetry. Our stories carry the heavy weight of family. We let them dance together and something honest emerged." },
-            { id: 4, title: "Writing Characters That Refuse to Be Liked", excerpt: "The art of creating complicated, difficult, and deeply human characters.", category: "Craft", date: "July 8, 2026", readTime: "9 min", image: "https://picsum.photos/id/1005/900/600", content: "We don’t write heroes. We write people carrying things they don’t know how to put down. That’s what makes them magnetic." },
-            { id: 5, title: "The Color Theory of Longing", excerpt: "How we use light and color as our second language to tell emotional truth.", category: "Visual Storytelling", date: "July 5, 2026", readTime: "8 min", image: "https://picsum.photos/id/251/900/600", content: "Golden hour isn’t just pretty. Warm tones represent memory. Cool shadows represent the present they can’t escape." },
-            { id: 6, title: "The Night We Cried in the Editing Room", excerpt: "A raw confession from the moment the story became too real for all of us.", category: "Behind the Scenes", date: "July 3, 2026", readTime: "7 min", image: "https://picsum.photos/id/29/900/600", content: "We stopped the timeline. No one spoke for almost a minute. We all knew this scene was too honest to cut." },
-            { id: 7, title: "Love That Actually Destroys People", excerpt: "Writing romance that changes characters instead of just making them happy.", category: "Storytelling", date: "June 30, 2026", readTime: "10 min", image: "https://picsum.photos/id/160/900/600", content: "Easy love is forgettable. The kind that destroys and then rebuilds — that’s the only love worth writing." },
-            { id: 8, title: "How We Build Tension Without Explosions", excerpt: "The slow-burn technique we borrowed and completely transformed.", category: "Craft", date: "June 28, 2026", readTime: "8 min", image: "https://picsum.photos/id/201/900/600", content: "We don’t rely on big dramatic moments. We rely on glances, pauses, and what’s left unsaid between family members." },
-            { id: 9, title: "The Family Dinner That Changed Everything", excerpt: "One simple scene became the emotional core of the entire series.", category: "Behind the Scenes", date: "June 25, 2026", readTime: "6 min", image: "https://picsum.photos/id/1005/900/600", content: "We cried while writing it. The actors cried while shooting it. Audiences will feel it in their bones." },
-            { id: 10, title: "Treating Spaces as Living Characters", excerpt: "How the old family home became one of the most important characters in our story.", category: "Visual Storytelling", date: "June 22, 2026", readTime: "7 min", image: "https://picsum.photos/id/251/900/600", content: "The house remembers every argument, every forgiveness, every silence. We treat it like it’s alive." },
-            { id: 11, title: "The Philosophy of Unfinished Endings", excerpt: "Why we will never give you complete closure — and why that’s the point.", category: "Storytelling", date: "June 20, 2026", readTime: "9 min", image: "https://picsum.photos/id/29/900/600", content: "Closure is comforting. Longing is eternal. We choose longing every single time." },
-            { id: 12, title: "When Actors Stopped Performing", excerpt: "The beautiful terrifying moment the characters started living on their own.", category: "Behind the Scenes", date: "June 18, 2026", readTime: "5 min", image: "https://picsum.photos/id/160/900/600", content: "At some point the actors stopped acting and started living the characters. That’s when the real magic happened." },
-            { id: 13, title: "Blending Two Cinematic Worlds", excerpt: "The challenges and beauty of merging Turkish poetry with South Asian emotional honesty.", category: "Culture", date: "June 15, 2026", readTime: "11 min", image: "https://picsum.photos/id/201/900/600", content: "It wasn’t about copying either style. It was about letting them argue beautifully until they found harmony." },
-            { id: 14, title: "Writing Dialogue That Feels Stolen", excerpt: "How we make conversations feel like they were never meant to be heard out loud.", category: "Craft", date: "June 12, 2026", readTime: "8 min", image: "https://picsum.photos/id/1005/900/600", content: "The best lines are the ones characters are terrified to say. We make them say it anyway." },
-            { id: 15, title: "Lighting as Emotional Language", excerpt: "Using light and shadow to communicate what words cannot express.", category: "Visual Storytelling", date: "June 10, 2026", readTime: "6 min", image: "https://picsum.photos/id/251/900/600", content: "Warm light for memory. Harsh light for confrontation. We let light do the heavy emotional lifting." }
+            { id: 1, title: "The Weight of Silence in Episode 3", excerpt: "Why 47 seconds of silence became the most powerful moment in our series.", category: "Behind the Scenes", date: "July 14, 2026", readTime: "14 min", image: "https://picsum.photos/id/1015/900/600", content: "In the writers’ room we fought for three hours. In the end we removed the line completely. The silence became everything." },
+            { id: 2, title: "Why We Left the Love Unfinished", excerpt: "The deliberate decision that defined our entire storytelling philosophy.", category: "Storytelling", date: "July 10, 2026", readTime: "11 min", image: "https://picsum.photos/id/160/900/600", content: "We could have given closure. We chose longing instead. That ache is what makes the story live forever." },
+            { id: 3, title: "Turkish Drama Meets Pakistani Soul", excerpt: "How two rich traditions created something that never existed before.", category: "Culture", date: "July 12, 2026", readTime: "12 min", image: "https://picsum.photos/id/201/900/600", content: "Turkish poetry met South Asian emotional weight. The result was honest, raw, and completely new." },
+            { id: 4, title: "Writing Characters That Refuse to Be Liked", excerpt: "The beauty of creating difficult, complicated, and deeply human characters.", category: "Craft", date: "July 8, 2026", readTime: "9 min", image: "https://picsum.photos/id/1005/900/600", content: "We don’t write perfect people. We write people who are carrying too much. That’s what makes them unforgettable." },
+            { id: 5, title: "The Color Theory of Emotion", excerpt: "How we use light and color as our second language to tell the truth.", category: "Visual Storytelling", date: "July 5, 2026", readTime: "8 min", image: "https://picsum.photos/id/251/900/600", content: "Warm light for memory. Cold light for confrontation. Color became our most honest tool." },
+            { id: 6, title: "The Night We Cried in the Editing Room", excerpt: "The raw moment when the story became too real for all of us.", category: "Behind the Scenes", date: "July 3, 2026", readTime: "7 min", image: "https://picsum.photos/id/29/900/600", content: "We stopped the timeline. No one spoke. We all knew this scene was too honest to cut." },
+            { id: 7, title: "Love That Destroys and Rebuilds", excerpt: "Writing romance that actually changes who the characters are.", category: "Storytelling", date: "June 30, 2026", readTime: "10 min", image: "https://picsum.photos/id/160/900/600", content: "Easy love is forgettable. The kind that breaks people and then puts them back together — that’s the only love worth telling." },
+            { id: 8, title: "Building Tension Without Explosions", excerpt: "The slow-burn technique that makes silence louder than screams.", category: "Craft", date: "June 28, 2026", readTime: "8 min", image: "https://picsum.photos/id/201/900/600", content: "We learned that the most powerful tension lives in what is not said between family members." },
+            { id: 9, title: "The Family Dinner Scene That Broke Us", excerpt: "One ordinary dinner became the emotional heart of the entire series.", category: "Behind the Scenes", date: "June 25, 2026", readTime: "6 min", image: "https://picsum.photos/id/1005/900/600", content: "We cried while writing it. The actors cried while filming it. That’s how we knew it was real." },
+            { id: 10, title: "When Spaces Become Characters", excerpt: "Treating the old family home as one of the most important characters in our story.", category: "Visual Storytelling", date: "June 22, 2026", readTime: "7 min", image: "https://picsum.photos/id/251/900/600", content: "The house remembers every betrayal, every forgiveness. We gave it a soul." }
         ]
 
-        let currentFilter = 'All';
-        let cryptoChart;
-
-        function renderPosts(filteredPosts) {
+        function renderPosts(filtered) {
             const container = document.getElementById('posts-grid');
             container.innerHTML = '';
 
-            filteredPosts.forEach((post, index) => {
+            filtered.forEach(post => {
                 const card = document.createElement('div');
-                card.className = `post-card bg-white border border-zinc-200 rounded-3xl overflow-hidden cursor-pointer`;
-                card.style.animationDelay = `${index * 60}ms`;
+                card.className = `post-card unique-layout border border-zinc-200 overflow-hidden cursor-pointer`;
                 
                 card.innerHTML = `
-                    <div class="relative overflow-hidden">
-                        <img src="${post.image}" class="w-full h-56 object-cover" alt="${post.title}">
-                        <div class="absolute top-4 left-4">
-                            <span class="px-3.5 py-1 text-xs font-semibold bg-white/95 rounded-full shadow-sm">${post.category}</span>
-                        </div>
-                    </div>
+                    <img src="${post.image}" class="w-full h-56 object-cover" alt="">
                     <div class="p-6">
+                        <div class="flex items-center gap-x-2 mb-3">
+                            <span class="text-xs font-semibold px-3 py-1 bg-zinc-100 rounded-full">${post.category}</span>
+                        </div>
                         <h3 class="font-semibold text-[21px] leading-tight tracking-tight mb-3">${post.title}</h3>
                         <p class="text-sm text-zinc-600 line-clamp-3 mb-5">${post.excerpt}</p>
-                        
-                        <div class="flex items-center justify-between text-xs text-zinc-500">
+                        <div class="flex justify-between text-xs text-zinc-500">
                             <span>${post.date}</span>
                             <span class="font-medium">${post.readTime}</span>
                         </div>
@@ -248,151 +237,86 @@
         function renderCategoryFilters() {
             const container = document.getElementById('category-filters');
             const categories = ['All', ...new Set(posts.map(p => p.category))];
-            
             container.innerHTML = '';
-            
+
             categories.forEach(cat => {
                 const btn = document.createElement('button');
-                btn.className = `filter-btn px-5 py-2 text-sm font-medium rounded-2xl border border-zinc-200 hover:border-zinc-300 ${cat === 'All' ? 'active bg-zinc-900 text-white border-zinc-900' : 'bg-white'}`;
+                btn.className = `px-5 py-2 text-sm font-medium rounded-2xl border transition-all ${cat === 'All' ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white border-zinc-200'}`;
                 btn.textContent = cat;
-                
                 btn.onclick = () => {
-                    currentFilter = cat;
-                    filterPosts();
-                    document.querySelectorAll('#category-filters button').forEach(b => {
-                        b.classList.remove('active', 'bg-zinc-900', 'text-white', 'border-zinc-900');
-                        if (b.textContent === cat) b.classList.add('active', 'bg-zinc-900', 'text-white', 'border-zinc-900');
-                    });
+                    filterPosts(cat);
+                    document.querySelectorAll('#category-filters button').forEach(b => b.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-900'));
+                    btn.classList.add('bg-zinc-900', 'text-white', 'border-zinc-900');
                 };
                 container.appendChild(btn);
             });
         }
 
-        function filterPosts() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        function filterPosts(category) {
             let filtered = posts;
-
-            if (currentFilter !== 'All') filtered = filtered.filter(p => p.category === currentFilter);
-            if (searchTerm) filtered = filtered.filter(p => p.title.toLowerCase().includes(searchTerm) || p.excerpt.toLowerCase().includes(searchTerm));
-
+            if (category !== 'All') filtered = posts.filter(p => p.category === category);
             renderPosts(filtered);
         }
 
         function openPostModal(postId) {
             const post = posts.find(p => p.id === postId);
-            if (!post) return;
+            alert(`${post.title}\n\n${post.content}`); // Simple for now
+        }
 
-            document.getElementById('modal-category').textContent = post.category;
-            document.getElementById('modal-title').textContent = post.title;
-            document.getElementById('modal-date').textContent = post.date;
-            document.getElementById('modal-readtime').textContent = post.readTime;
-            document.getElementById('modal-content').innerHTML = `<p>${post.content}</p>`;
+        function readChapter(chapterNum) {
+            const modal = document.getElementById('chapter-modal');
+            const titleEl = document.getElementById('chapter-title');
+            const contentEl = document.getElementById('chapter-content');
+            const numEl = document.getElementById('chapter-number');
 
-            const modal = document.getElementById('post-modal');
+            if (chapterNum === 1) {
+                numEl.textContent = 'Chapter 01';
+                titleEl.textContent = 'The Girl Who Saw Shadows';
+                contentEl.innerHTML = `<p>In the quiet town of Hikarimachi, Aiko could see flowers blooming from people's chests — dark, beautiful flowers that represented their hidden emotions.</p><p>No one else could see them. Only her.</p><p>That was her curse. And her gift.</p>`;
+            } else if (chapterNum === 2) {
+                numEl.textContent = 'Chapter 02';
+                titleEl.textContent = 'The Shadow That Smiled';
+                contentEl.innerHTML = `<p>One evening she met Ren. His shadow had no flower. Instead, it smiled at her when no one was looking.</p><p>His silence was so deep that even the wind seemed afraid to touch him.</p>`;
+            } else if (chapterNum === 3) {
+                numEl.textContent = 'Chapter 03';
+                titleEl.textContent = 'Flowers That Cry';
+                contentEl.innerHTML = `<p>When Aiko finally touched his hand, she understood. His flower wasn’t missing — it was buried deep inside, crying silently for years.</p><p>That night, the first real cherry blossom fell in Hikarimachi after ten long summers.</p>`;
+            }
+
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
 
-        function closeModal() {
-            const modal = document.getElementById('post-modal');
+        function closeChapterModal() {
+            const modal = document.getElementById('chapter-modal');
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
 
-        // Crypto Live Pie Chart
-        function initCryptoChart() {
-            const ctx = document.getElementById('crypto-chart');
-            if (!ctx) return;
-
-            cryptoChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: ['Bitcoin', 'Ethereum', 'Solana', 'BNB', 'Others'],
-                    datasets: [{
-                        data: [42, 28, 12, 9, 9],
-                        backgroundColor: ['#f7931a', '#627eea', '#9945ff', '#f0b90b', '#64748b'],
-                        borderWidth: 3,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { padding: 20, font: { size: 13 } } }
-                    }
-                }
-            });
-
-            // Live update every 5 seconds
-            setInterval(updateCryptoData, 5000);
-            updateCryptoPrices();
-        }
-
-        function updateCryptoData() {
-            if (!cryptoChart) return;
-
-            // Random small changes for "live" feel
-            const newData = cryptoChart.data.datasets[0].data.map(val => {
-                const change = (Math.random() - 0.5) * 4;
-                return Math.max(5, Math.round(val + change));
-            });
-
-            cryptoChart.data.datasets[0].data = newData;
-            cryptoChart.update();
-
-            document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
-        }
-
-        function updateCryptoPrices() {
-            const prices = {
-                'btc-price': (67200 + Math.random() * 800).toFixed(0),
-                'eth-price': (3380 + Math.random() * 120).toFixed(0),
-                'sol-price': (175 + Math.random() * 15).toFixed(0),
-                'bnb-price': (585 + Math.random() * 20).toFixed(0)
-            };
-
-            Object.keys(prices).forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = '$' + prices[id];
-            });
-
-            document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
-        }
-
         function switchTab(tab) {
             document.getElementById('journal-tab').classList.toggle('hidden', tab !== 'journal');
-            document.getElementById('crypto-tab').classList.toggle('hidden', tab !== 'crypto');
+            document.getElementById('visual-tab').classList.toggle('hidden', tab !== 'visual');
 
             document.getElementById('tab-journal').classList.toggle('active', tab === 'journal');
-            document.getElementById('tab-crypto').classList.toggle('active', tab === 'crypto');
-
-            if (tab === 'crypto' && !cryptoChart) {
-                setTimeout(initCryptoChart, 100);
-            }
-        }
-
-        function initSearch() {
-            const input = document.getElementById('search-input');
-            input.addEventListener('input', () => filterPosts());
+            document.getElementById('tab-visual').classList.toggle('active', tab === 'visual');
         }
 
         function initializeSite() {
-            initTailwind();
             renderCategoryFilters();
             renderPosts(posts);
-            initSearch();
 
-            // Set first filter active
-            setTimeout(() => {
-                const first = document.querySelector('#category-filters button');
-                if (first) first.classList.add('active', 'bg-zinc-900', 'text-white', 'border-zinc-900');
-            }, 80);
+            const input = document.getElementById('search-input');
+            input.addEventListener('input', () => {
+                const term = input.value.toLowerCase();
+                const filtered = posts.filter(p => p.title.toLowerCase().includes(term) || p.excerpt.toLowerCase().includes(term));
+                renderPosts(filtered);
+            });
 
-            // Show journal by default
+            // Default to Journal tab
             document.getElementById('journal-tab').classList.remove('hidden');
-            document.getElementById('crypto-tab').classList.add('hidden');
+            document.getElementById('visual-tab').classList.add('hidden');
 
-            console.log('%c[Lumora Journal] Enhanced with unique posts + heavy animations + live crypto chart.', 'color:#666');
+            console.log('%c[Lumora Journal] Unique layout + Original Japanese Light Novel added.', 'color:#666');
         }
 
         window.onload = initializeSite;
