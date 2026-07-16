@@ -3,227 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Lumora Journal</title>
+    <title>Lumora Journal • Stories &amp; Craft</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .article-card { transition: all 0.2s ease; }
-        .article-card:hover { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-        .section-header { font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .heading { font-family: 'Playfair Display', Georgia, serif; }
+        
+        .post-card {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        .post-card:hover {
+            transform: translateY(-12px) scale(1.01);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+        
+        .post-card img {
+            transition: transform 0.6s ease;
+        }
+        .post-card:hover img {
+            transform: scale(1.08);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background-color: #111113;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .modal {
+            animation: modalEnter 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        .section-header {
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-tab {
+            transition: all 0.3s ease;
+        }
+        .nav-tab.active {
+            border-bottom: 3px solid #111113;
+            font-weight: 600;
+        }
+
+        .crypto-update {
+            animation: pulse 2s infinite;
+        }
     </style>
 </head>
-<body class="bg-white text-zinc-900">
+<body class="bg-[#f8f7f4] text-zinc-900">
     <!-- Header -->
-    <header class="border-b">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-x-8">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <span class="text-3xl font-bold tracking-tight">Lumora Journal</span>
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-zinc-900 rounded-2xl flex items-center justify-center">
+                    <span class="text-white font-bold text-2xl tracking-tighter">L</span>
                 </div>
-                
-                <!-- Weather & Date -->
-                <div class="hidden md:flex items-center text-sm text-zinc-600">
-                    <span class="font-medium">28.4 °C</span>
-                    <span class="mx-2">•</span>
-                    <span>Islamabad</span>
-                    <span class="mx-2">•</span>
-                    <span>Friday, July 17, 2026</span>
-                </div>
+                <span class="font-bold text-3xl tracking-tighter">Lumora Journal</span>
             </div>
 
-            <!-- Search -->
-            <div class="w-80">
-                <div class="relative">
-                    <input type="text" id="search-input" placeholder="Search stories..." 
-                           class="w-full border border-zinc-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-zinc-400">
-                    <i class="fa-solid fa-search absolute right-4 top-2.5 text-zinc-400"></i>
+            <div class="flex items-center gap-x-8">
+                <!-- Tabs -->
+                <div class="flex items-center gap-x-1 text-sm font-medium">
+                    <button onclick="switchTab('journal')" class="nav-tab active px-5 py-2" id="tab-journal">Journal</button>
+                    <button onclick="switchTab('crypto')" class="nav-tab px-5 py-2" id="tab-crypto">Crypto Watch</button>
+                </div>
+
+                <div class="w-72">
+                    <div class="relative">
+                        <input id="search-input" type="text" placeholder="Search stories..." 
+                               class="w-full border border-zinc-300 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:border-zinc-400">
+                        <i class="fa-solid fa-search absolute right-4 top-3 text-zinc-400"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Ad Banners -->
-    <div class="max-w-7xl mx-auto px-6 py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-zinc-100 h-16 rounded flex items-center justify-center text-xs text-zinc-500">Ad Banner 1</div>
-        <div class="bg-zinc-100 h-16 rounded flex items-center justify-center text-xs text-zinc-500">Ad Banner 2</div>
-        <div class="bg-zinc-100 h-16 rounded flex items-center justify-center text-xs text-zinc-500">Ad Banner 3</div>
-        <div class="bg-zinc-100 h-16 rounded flex items-center justify-center text-xs text-zinc-500">Ad Banner 4</div>
-    </div>
-
-    <!-- Trending Now -->
-    <div class="max-w-7xl mx-auto px-6 py-6">
-        <div class="section-header flex items-center gap-x-2">
-            <span>Trending Now</span>
+    <!-- JOURNAL TAB -->
+    <div id="journal-tab">
+        <!-- Hero -->
+        <div class="bg-white border-b">
+            <div class="max-w-5xl mx-auto px-6 py-16 text-center">
+                <h1 class="heading text-6xl tracking-tighter mb-4">Stories that stay with you.</h1>
+                <p class="text-xl text-zinc-600 max-w-md mx-auto">Behind the craft, emotion, and world of Lumora Pictures.</p>
+            </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 text-sm">
-            <div class="space-y-3">
-                <a href="#" class="block hover:text-amber-600">The Weight of Silence in Episode 3</a>
-                <a href="#" class="block hover:text-amber-600">Why We Left the Love Unfinished</a>
-                <a href="#" class="block hover:text-amber-600">Turkish Drama Meets Pakistani Soul</a>
-            </div>
-            <div class="space-y-3">
-                <a href="#" class="block hover:text-amber-600">Writing Scenes That Break You</a>
-                <a href="#" class="block hover:text-amber-600">The Color of Longing</a>
-                <a href="#" class="block hover:text-amber-600">Characters Who Refuse to Be Liked</a>
-            </div>
-            <div class="space-y-3">
-                <a href="#" class="block hover:text-amber-600">The Night We Cried in the Editing Room</a>
-                <a href="#" class="block hover:text-amber-600">Building Characters People Care About</a>
-                <a href="#" class="block hover:text-amber-600">The Power of Leaving Stories Unfinished</a>
-            </div>
+
+        <!-- Filters -->
+        <div class="max-w-7xl mx-auto px-6 pt-10">
+            <div class="flex flex-wrap gap-2 mb-8" id="category-filters"></div>
+        </div>
+
+        <!-- Posts Grid -->
+        <div class="max-w-7xl mx-auto px-6 pb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7" id="posts-grid"></div>
         </div>
     </div>
 
-    <!-- Business News / Behind the Scenes -->
-    <div class="max-w-7xl mx-auto px-6 py-8 border-t">
-        <div class="flex items-center justify-between mb-4">
-            <div class="section-header">Behind the Scenes</div>
-            <a href="#" class="text-sm text-amber-600 hover:underline">View All →</a>
+    <!-- CRYPTO WATCH TAB -->
+    <div id="crypto-tab" class="hidden max-w-5xl mx-auto px-6 py-12">
+        <div class="text-center mb-10">
+            <h2 class="heading text-5xl tracking-tight mb-3">Crypto Watch</h2>
+            <p class="text-zinc-600">Live market overview • Updates every 5 seconds</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Article Cards -->
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/1015/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">The Weight of Silence in Episode 3</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • July 14, 2026</div>
-                    <p class="text-sm text-zinc-600 line-clamp-2">In the writers’ room, we fought for three hours over one line. In the end, we removed it entirely...</p>
+
+        <div class="bg-white rounded-3xl p-8 border shadow-sm">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <div class="font-semibold text-xl">Market Distribution</div>
+                    <div class="text-sm text-emerald-600 crypto-update">● Live • Updating</div>
                 </div>
+                <div class="text-xs text-zinc-500">Last updated: <span id="last-updated"></span></div>
             </div>
             
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/160/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">The Night We Almost Gave Up</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • July 5, 2026</div>
-                    <p class="text-sm text-zinc-600 line-clamp-2">We were ready to scrap the entire scene. Then one line changed everything...</p>
-                </div>
+            <div class="max-w-md mx-auto">
+                <canvas id="crypto-chart" width="400" height="400"></canvas>
             </div>
 
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/201/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">The First Time We Saw the Dailies</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • June 15, 2026</div>
-                    <p class="text-sm text-zinc-600 line-clamp-2">Nothing prepares you for seeing actors breathe life into words you wrote at 3 a.m...</p>
+            <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="bg-zinc-50 p-4 rounded-2xl">
+                    <div class="text-emerald-600 font-semibold">Bitcoin</div>
+                    <div class="text-2xl font-semibold" id="btc-price">$67,420</div>
                 </div>
-            </div>
-
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/29/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">Moments That Changed Everything</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • June 1, 2026</div>
-                    <p class="text-sm text-zinc-600 line-clamp-2">One changed line. One new location. Small moments created the biggest impact...</p>
+                <div class="bg-zinc-50 p-4 rounded-2xl">
+                    <div class="text-emerald-600 font-semibold">Ethereum</div>
+                    <div class="text-2xl font-semibold" id="eth-price">$3,420</div>
+                </div>
+                <div class="bg-zinc-50 p-4 rounded-2xl">
+                    <div class="text-emerald-600 font-semibold">Solana</div>
+                    <div class="text-2xl font-semibold" id="sol-price">$178</div>
+                </div>
+                <div class="bg-zinc-50 p-4 rounded-2xl">
+                    <div class="text-emerald-600 font-semibold">BNB</div>
+                    <div class="text-2xl font-semibold" id="bnb-price">$592</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Culture Section -->
-    <div class="max-w-7xl mx-auto px-6 py-8 border-t">
-        <div class="flex items-center justify-between mb-4">
-            <div class="section-header">Culture &amp; Storytelling</div>
-            <a href="#" class="text-sm text-amber-600 hover:underline">View All →</a>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/251/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">Turkish Drama Meets Pakistani Soul</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • July 12, 2026</div>
-                    <p class="text-sm text-zinc-600 line-clamp-2">Turkish dramas move like poetry. Pakistani stories carry the weight of family...</p>
-                </div>
-            </div>
+    <!-- Post Modal -->
+    <div id="post-modal" onclick="if (event.target.id === 'post-modal') closeModal()" 
+         class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl modal">
             
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/1005/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">How We Steal From Turkish Masters</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • June 18, 2026</div>
-                    <p class="text-sm text-zinc-600 line-clamp-2">We studied the masters. Then we asked: What would this look like in our world?</p>
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span id="modal-category" class="px-4 py-1 text-xs font-semibold rounded-full bg-zinc-100"></span>
+                    </div>
+                    <button onclick="closeModal()" class="text-3xl text-zinc-400 hover:text-black">&times;</button>
                 </div>
+
+                <h1 id="modal-title" class="heading text-5xl tracking-tight leading-none mb-6"></h1>
+                
+                <div class="flex items-center gap-x-4 text-sm text-zinc-500 mb-8">
+                    <span id="modal-date"></span>
+                    <span>•</span>
+                    <span id="modal-readtime"></span>
+                </div>
+
+                <div id="modal-content" class="prose max-w-none text-[15.5px] leading-relaxed"></div>
+            </div>
+
+            <div class="bg-zinc-50 px-8 py-5 flex justify-end">
+                <button onclick="closeModal()" class="px-8 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-2xl">Close</button>
             </div>
         </div>
     </div>
-
-    <!-- Craft Section -->
-    <div class="max-w-7xl mx-auto px-6 py-8 border-t">
-        <div class="flex items-center justify-between mb-4">
-            <div class="section-header">Craft &amp; Writing</div>
-            <a href="#" class="text-sm text-amber-600 hover:underline">View All →</a>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/160/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">Writing Scenes That Break You</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • July 10, 2026</div>
-                    <p class="text-sm text-zinc-600 line-clamp-2">Great drama isn’t about what happens. It’s about what it makes you feel...</p>
-                </div>
-            </div>
-            
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/201/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">Writing Love That Hurts</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • June 12, 2026</div>
-                    <p class="text-sm text-zinc-600 line-clamp-2">We don’t write love stories. We write stories about people who are willing to be destroyed by love...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Latest Articles -->
-    <div class="max-w-7xl mx-auto px-6 py-8 border-t">
-        <div class="section-header">Latest Stories</div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- More cards -->
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/29/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">The Power of Unfinished Stories</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • July 8, 2026</div>
-                </div>
-            </div>
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/160/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">Characters Who Refuse to Be Liked</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • June 25, 2026</div>
-                </div>
-            </div>
-            <div class="article-card border border-zinc-200 rounded-xl overflow-hidden">
-                <img src="https://picsum.photos/id/201/600/340" class="w-full h-44 object-cover" alt="">
-                <div class="p-4">
-                    <h3 class="font-semibold leading-tight mb-2">The Architecture of Longing</h3>
-                    <div class="text-xs text-zinc-500 mb-2">Lumora Team • June 20, 2026</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-t py-10 mt-10">
-        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-zinc-500">
-            © 2026 Lumora Journal — Designed for storytellers
-        </div>
-    </footer>
 
     <script>
-        // Simple search functionality
-        const searchInput = document.getElementById('search-input');
-        searchInput.addEventListener('input', () => {
-            const term = searchInput.value.toLowerCase();
-            document.querySelectorAll('.article-card').forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                card.style.display = title.includes(term) ? '' : 'none';
-            });
-        });
+        // Tailwind
+        function initTailwind() {}
 
-        console.log('%c[Lumora Journal] Close replica of blogili.com style initialized.', 'color:#666');
+        // Unique Posts - All Different Topics
+        let posts = [
+            { id: 1, title: "The Weight of Silence in Episode 3", excerpt: "Why we chose 47 seconds of pure silence and how it broke everyone in the room.", category: "Behind the Scenes", date: "July 14, 2026", readTime: "14 min", image: "https://picsum.photos/id/1015/900/600", content: "In the writers’ room we fought for three hours. In the end we removed the line completely. The silence became the most powerful moment in the entire episode." },
+            { id: 2, title: "Why We Left the Love Unfinished", excerpt: "The deliberate choice that defined our entire series from the very first episode.", category: "Storytelling", date: "July 10, 2026", readTime: "11 min", image: "https://picsum.photos/id/160/900/600", content: "We could have given closure. We chose longing instead. In Turkish drama, the ache is the point. We brought that ache into our world." },
+            { id: 3, title: "Turkish Drama Meets Pakistani Soul", excerpt: "How two completely different storytelling traditions created something brand new.", category: "Culture", date: "July 12, 2026", readTime: "12 min", image: "https://picsum.photos/id/201/900/600", content: "Turkish dramas move like poetry. Our stories carry the heavy weight of family. We let them dance together and something honest emerged." },
+            { id: 4, title: "Writing Characters That Refuse to Be Liked", excerpt: "The art of creating complicated, difficult, and deeply human characters.", category: "Craft", date: "July 8, 2026", readTime: "9 min", image: "https://picsum.photos/id/1005/900/600", content: "We don’t write heroes. We write people carrying things they don’t know how to put down. That’s what makes them magnetic." },
+            { id: 5, title: "The Color Theory of Longing", excerpt: "How we use light and color as our second language to tell emotional truth.", category: "Visual Storytelling", date: "July 5, 2026", readTime: "8 min", image: "https://picsum.photos/id/251/900/600", content: "Golden hour isn’t just pretty. Warm tones represent memory. Cool shadows represent the present they can’t escape." },
+            { id: 6, title: "The Night We Cried in the Editing Room", excerpt: "A raw confession from the moment the story became too real for all of us.", category: "Behind the Scenes", date: "July 3, 2026", readTime: "7 min", image: "https://picsum.photos/id/29/900/600", content: "We stopped the timeline. No one spoke for almost a minute. We all knew this scene was too honest to cut." },
+            { id: 7, title: "Love That Actually Destroys People", excerpt: "Writing romance that changes characters instead of just making them happy.", category: "Storytelling", date: "June 30, 2026", readTime: "10 min", image: "https://picsum.photos/id/160/900/600", content: "Easy love is forgettable. The kind that destroys and then rebuilds — that’s the only love worth writing." },
+            { id: 8, title: "How We Build Tension Without Explosions", excerpt: "The slow-burn technique we borrowed and completely transformed.", category: "Craft", date: "June 28, 2026", readTime: "8 min", image: "https://picsum.photos/id/201/900/600", content: "We don’t rely on big dramatic moments. We rely on glances, pauses, and what’s left unsaid between family members." },
+            { id: 9, title: "The Family Dinner That Changed Everything", excerpt: "One simple scene became the emotional core of the entire series.", category: "Behind the Scenes", date: "June 25, 2026", readTime: "6 min", image: "https://picsum.photos/id/1005/900/600", content: "We cried while writing it. The actors cried while shooting it. Audiences will feel it in their bones." },
+            { id: 10, title: "Treating Spaces as Living Characters", excerpt: "How the old family home became one of the most important characters in our story.", category: "Visual Storytelling", date: "June 22, 2026", readTime: "7 min", image: "https://picsum.photos/id/251/900/600", content: "The house remembers every argument, every forgiveness, every silence. We treat it like it’s alive." },
+            { id: 11, title: "The Philosophy of Unfinished Endings", excerpt: "Why we will never give you complete closure — and why that’s the point.", category: "Storytelling", date: "June 20, 2026", readTime: "9 min", image: "https://picsum.photos/id/29/900/600", content: "Closure is comforting. Longing is eternal. We choose longing every single time." },
+            { id: 12, title: "When Actors Stopped Performing", excerpt: "The beautiful terrifying moment the characters started living on their own.", category: "Behind the Scenes", date: "June 18, 2026", readTime: "5 min", image: "https://picsum.photos/id/160/900/600", content: "At some point the actors stopped acting and started living the characters. That’s when the real magic happened." },
+            { id: 13, title: "Blending Two Cinematic Worlds", excerpt: "The challenges and beauty of merging Turkish poetry with South Asian emotional honesty.", category: "Culture", date: "June 15, 2026", readTime: "11 min", image: "https://picsum.photos/id/201/900/600", content: "It wasn’t about copying either style. It was about letting them argue beautifully until they found harmony." },
+            { id: 14, title: "Writing Dialogue That Feels Stolen", excerpt: "How we make conversations feel like they were never meant to be heard out loud.", category: "Craft", date: "June 12, 2026", readTime: "8 min", image: "https://picsum.photos/id/1005/900/600", content: "The best lines are the ones characters are terrified to say. We make them say it anyway." },
+            { id: 15, title: "Lighting as Emotional Language", excerpt: "Using light and shadow to communicate what words cannot express.", category: "Visual Storytelling", date: "June 10, 2026", readTime: "6 min", image: "https://picsum.photos/id/251/900/600", content: "Warm light for memory. Harsh light for confrontation. We let light do the heavy emotional lifting." }
+        ]
+
+        let currentFilter = 'All';
+        let cryptoChart;
+
+        function renderPosts(filteredPosts) {
+            const container = document.getElementById('posts-grid');
+            container.innerHTML = '';
+
+            filteredPosts.forEach((post, index) => {
+                const card = document.createElement('div');
+                card.className = `post-card bg-white border border-zinc-200 rounded-3xl overflow-hidden cursor-pointer`;
+                card.style.animationDelay = `${index * 60}ms`;
+                
+                card.innerHTML = `
+                    <div class="relative overflow-hidden">
+                        <img src="${post.image}" class="w-full h-56 object-cover" alt="${post.title}">
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3.5 py-1 text-xs font-semibold bg-white/95 rounded-full shadow-sm">${post.category}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-[21px] leading-tight tracking-tight mb-3">${post.title}</h3>
+                        <p class="text-sm text-zinc-600 line-clamp-3 mb-5">${post.excerpt}</p>
+                        
+                        <div class="flex items-center justify-between text-xs text-zinc-500">
+                            <span>${post.date}</span>
+                            <span class="font-medium">${post.readTime}</span>
+                        </div>
+                    </div>
+                `;
+                card.onclick = () => openPostModal(post.id);
+                container.appendChild(card);
+            });
+        }
+
+        function renderCategoryFilters() {
+            const container = document.getElementById('category-filters');
+            const categories = ['All', ...new Set(posts.map(p => p.category))];
+            
+            container.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `filter-btn px-5 py-2 text-sm font-medium rounded-2xl border border-zinc-200 hover:border-zinc-300 ${cat === 'All' ? 'active bg-zinc-900 text-white border-zinc-900' : 'bg-white'}`;
+                btn.textContent = cat;
+                
+                btn.onclick = () => {
+                    currentFilter = cat;
+                    filterPosts();
+                    document.querySelectorAll('#category-filters button').forEach(b => {
+                        b.classList.remove('active', 'bg-zinc-900', 'text-white', 'border-zinc-900');
+                        if (b.textContent === cat) b.classList.add('active', 'bg-zinc-900', 'text-white', 'border-zinc-900');
+                    });
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function filterPosts() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            let filtered = posts;
+
+            if (currentFilter !== 'All') filtered = filtered.filter(p => p.category === currentFilter);
+            if (searchTerm) filtered = filtered.filter(p => p.title.toLowerCase().includes(searchTerm) || p.excerpt.toLowerCase().includes(searchTerm));
+
+            renderPosts(filtered);
+        }
+
+        function openPostModal(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+
+            document.getElementById('modal-category').textContent = post.category;
+            document.getElementById('modal-title').textContent = post.title;
+            document.getElementById('modal-date').textContent = post.date;
+            document.getElementById('modal-readtime').textContent = post.readTime;
+            document.getElementById('modal-content').innerHTML = `<p>${post.content}</p>`;
+
+            const modal = document.getElementById('post-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('post-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        // Crypto Live Pie Chart
+        function initCryptoChart() {
+            const ctx = document.getElementById('crypto-chart');
+            if (!ctx) return;
+
+            cryptoChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Bitcoin', 'Ethereum', 'Solana', 'BNB', 'Others'],
+                    datasets: [{
+                        data: [42, 28, 12, 9, 9],
+                        backgroundColor: ['#f7931a', '#627eea', '#9945ff', '#f0b90b', '#64748b'],
+                        borderWidth: 3,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { padding: 20, font: { size: 13 } } }
+                    }
+                }
+            });
+
+            // Live update every 5 seconds
+            setInterval(updateCryptoData, 5000);
+            updateCryptoPrices();
+        }
+
+        function updateCryptoData() {
+            if (!cryptoChart) return;
+
+            // Random small changes for "live" feel
+            const newData = cryptoChart.data.datasets[0].data.map(val => {
+                const change = (Math.random() - 0.5) * 4;
+                return Math.max(5, Math.round(val + change));
+            });
+
+            cryptoChart.data.datasets[0].data = newData;
+            cryptoChart.update();
+
+            document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+        }
+
+        function updateCryptoPrices() {
+            const prices = {
+                'btc-price': (67200 + Math.random() * 800).toFixed(0),
+                'eth-price': (3380 + Math.random() * 120).toFixed(0),
+                'sol-price': (175 + Math.random() * 15).toFixed(0),
+                'bnb-price': (585 + Math.random() * 20).toFixed(0)
+            };
+
+            Object.keys(prices).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '$' + prices[id];
+            });
+
+            document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+        }
+
+        function switchTab(tab) {
+            document.getElementById('journal-tab').classList.toggle('hidden', tab !== 'journal');
+            document.getElementById('crypto-tab').classList.toggle('hidden', tab !== 'crypto');
+
+            document.getElementById('tab-journal').classList.toggle('active', tab === 'journal');
+            document.getElementById('tab-crypto').classList.toggle('active', tab === 'crypto');
+
+            if (tab === 'crypto' && !cryptoChart) {
+                setTimeout(initCryptoChart, 100);
+            }
+        }
+
+        function initSearch() {
+            const input = document.getElementById('search-input');
+            input.addEventListener('input', () => filterPosts());
+        }
+
+        function initializeSite() {
+            initTailwind();
+            renderCategoryFilters();
+            renderPosts(posts);
+            initSearch();
+
+            // Set first filter active
+            setTimeout(() => {
+                const first = document.querySelector('#category-filters button');
+                if (first) first.classList.add('active', 'bg-zinc-900', 'text-white', 'border-zinc-900');
+            }, 80);
+
+            // Show journal by default
+            document.getElementById('journal-tab').classList.remove('hidden');
+            document.getElementById('crypto-tab').classList.add('hidden');
+
+            console.log('%c[Lumora Journal] Enhanced with unique posts + heavy animations + live crypto chart.', 'color:#666');
+        }
+
+        window.onload = initializeSite;
     </script>
 </body>
 </html>

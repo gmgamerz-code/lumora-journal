@@ -1,12 +1,7 @@
-# Lumora Journal - Blogili Style Replica
+# Lumora Journal - Enhanced Version
 
-Close 1-to-1 style replica of blogili.com with Lumora branding and content.
-
-## Structure
-- Header with logo, weather/date, search
-- Ad banners
-- Trending section
-- Multiple category sections with article cards
-- Clean, attractive blog layout
-
-This is a high-fidelity recreation of the blogili.com homepage style.
+- Unique posts on completely different topics (no repetition)
+- Heavy cool animations on cards, filters, modal
+- Two tabs: Journal + Crypto Watch
+- Live updating pie chart for Bitcoin + other cryptocurrencies (updates every 5 seconds)
+- Clean attractive blog style
