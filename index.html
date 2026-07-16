@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumora Journal • Cinematic Stories & Behind the Scenes</title>
+    <meta name="description" content="Stories that linger. Emotions that stay. Behind the scenes of Lumora Pictures — Turkish drama meets Pakistani soul.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@300;400;500;600&amp;display=swap');
+        
+        :root {
+            --gold: #C5A46E;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .cinematic-bg {
+            background: linear-gradient(180deg, #0a0a0c 0%, #111113 100%);
+        }
+
+        .post-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-scrolled {
+            background-color: rgba(17, 17, 19, 0.95);
+            backdrop-filter: blur(12px);
+        }
+
+        .modal {
+            animation: modalPop 0.3s ease forwards;
+        }
+
+        .prose {
+            font-size: 1.05rem;
+            line-height: 1.75;
+        }
+
+        .prose h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.65rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #f1e7d2;
+        }
+
+        .category-pill {
+            transition: all 0.2s ease;
+        }
+
+        .category-pill.active {
+            background-color: #C5A46E;
+            color: #111113;
+            font-weight: 600;
+        }
+
+        .gold-accent {
+            color: #C5A46E;
+        }
+
+        .section-header {
+            font-size: 2.75rem;
+            line-height: 1.05;
+            font-weight: 700;
+        }
+
+        .post-image {
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .post-card:hover .post-image {
+            transform: scale(1.05);
+        }
+
+        .reading-progress {
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0c] text-zinc-200 cinematic-bg">
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-gradient-to-br from-[#C5A46E] to-amber-600 rounded-xl flex items-center justify-center">
+                        <span class="text-[#111113] font-bold text-2xl tracking-tighter">L</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-3xl tracking-tighter">Lumora</span>
+                        <span class="text-[#C5A46E] font-semibold text-3xl tracking-tighter">Journal</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#home" class="hover:text-[#C5A46E] transition-colors">Home</a>
+                    <a href="#journal" class="hover:text-[#C5A46E] transition-colors">Journal</a>
+                    <a href="#about" class="hover:text-[#C5A46E] transition-colors">About</a>
+                </div>
+
+                <!-- Right side -->
+                <div class="flex items-center gap-x-4">
+                    <!-- Search -->
+                    <div class="relative hidden md:block w-72">
+                        <input 
+                            id="search-input"
+                            type="text" 
+                            placeholder="Search stories..." 
+                            class="w-full bg-white/5 border border-white/10 focus:border-[#C5A46E]/50 transition-colors pl-10 pr-4 py-2.5 rounded-2xl text-sm outline-none placeholder:text-zinc-500"
+                        >
+                        <i class="fa-solid fa-search absolute left-4 top-3.5 text-zinc-500"></i>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" 
+                            class="w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-white/5 transition-colors text-xl">
+                        <i class="fa-solid fa-moon" id="theme-icon"></i>
+                    </button>
+
+                    <!-- Mobile Menu -->
+                    <button class="md:hidden w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-white/5" onclick="toggleMobileMenu()">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero / Home -->
+    <section id="home" class="pt-20 min-h-[100dvh] flex items-center relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 pt-12 pb-20 text-center relative z-10">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
+                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <span class="text-sm font-medium tracking-wider">NEW EPISODE LIVE ON YOUTUBE</span>
+            </div>
+            
+            <h1 class="heading-serif text-7xl md:text-8xl leading-none tracking-tighter mb-6">
+                Stories that<br>linger.<br>
+                <span class="gold-accent">Emotions that stay.</span>
+            </h1>
+            
+            <p class="max-w-md mx-auto text-xl text-zinc-400 mb-10">
+                Behind the lens of Lumora Pictures.<br>
+                Turkish drama meets Pakistani soul.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#journal" 
+                   class="inline-flex items-center justify-center px-9 py-4 bg-[#C5A46E] hover:bg-amber-600 transition-all text-[#111113] font-semibold rounded-2xl text-lg">
+                    Start Reading
+                </a>
+                <a href="https://youtube.com/shorts/dhWjRzFNocI" target="_blank"
+                   class="inline-flex items-center justify-center gap-x-3 px-9 py-4 border border-white/20 hover:bg-white/5 transition-all font-medium rounded-2xl text-lg">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Episode 1</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Subtle gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-[#0a0a0c]"></div>
+    </section>
+
+    <!-- Featured Posts -->
+    <section class="max-w-7xl mx-auto px-6 pb-16">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <span class="text-[#C5A46E] text-sm font-semibold tracking-[3px]">CURATED</span>
+                <h2 class="heading-serif text-5xl tracking-tighter">Featured Stories</h2>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6" id="featured-grid">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- Journal Section -->
+    <section id="journal" class="max-w-7xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4 mb-10">
+            <div>
+                <span class="text-[#C5A46E] text-sm font-semibold tracking-[3px]">THE JOURNAL</span>
+                <h2 class="heading-serif text-6xl tracking-tighter">All Stories</h2>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap gap-2" id="category-filters">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Posts Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7" id="posts-grid">
+            <!-- Populated dynamically by JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="max-w-5xl mx-auto px-6 py-20 border-t border-white/10">
+        <div class="grid md:grid-cols-12 gap-x-12 items-center">
+            <div class="md:col-span-7">
+                <span class="text-[#C5A46E] text-sm font-semibold tracking-[3px]">OUR STORY</span>
+                <h2 class="heading-serif text-6xl tracking-tighter leading-none mt-3 mb-8">
+                    We tell stories<br>that feel like<br>home.
+                </h2>
+                
+                <div class="prose text-zinc-300 max-w-prose">
+                    <p class="mb-6">Lumora Journal is the creative home of Lumora Pictures — where Turkish cinematic drama meets the raw emotion of Pakistani storytelling.</p>
+                    <p>We believe the most powerful stories are the ones that stay with you long after the screen goes dark. This is where we share the process, the heartbreaks, the late-night writing sessions, and the magic behind every frame.</p>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 mt-10 md:mt-0">
+                <div class="bg-white/5 border border-white/10 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-4 mb-6">
+                        <div class="w-16 h-16 bg-zinc-800 rounded-2xl overflow-hidden">
+                            <img src="https://picsum.photos/id/1005/200/200" class="w-full h-full object-cover" alt="Lumora Team">
+                        </div>
+                        <div>
+                            <div class="font-semibold text-xl">Lumora Team</div>
+                            <div class="text-zinc-400">Storytellers • Islamabad</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400">Currently working on Season 1 of <span class="text-white font-medium">"The Beginning of an Unfinished Love"</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="max-w-3xl mx-auto px-6 pb-20 text-center">
+        <div class="bg-white/5 border border-white/10 rounded-3xl p-12">
+            <h3 class="heading-serif text-4xl tracking-tight mb-3">Stay in the story.</h3>
+            <p class="text-zinc-400 mb-8">Get new stories, behind-the-scenes notes, and early access to episodes.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input type="email" id="newsletter-email" placeholder="your@email.com" 
+                       class="flex-1 bg-white/5 border border-white/10 px-5 py-3.5 rounded-2xl text-sm outline-none focus:border-[#C5A46E]">
+                <button onclick="subscribeNewsletter()" 
+                        class="px-8 py-3.5 bg-[#C5A46E] hover:bg-amber-600 transition-all text-[#111113] font-semibold rounded-2xl whitespace-nowrap">
+                    Subscribe
+                </button>
+            </div>
+            <p class="text-xs text-zinc-500 mt-4">No spam. Just stories worth remembering.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-y-6 text-sm">
+            <div class="text-zinc-500">© 2026 Lumora Pictures. All stories are ours.</div>
+            <div class="flex gap-x-6">
+                <a href="#" class="hover:text-white transition-colors">YouTube</a>
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="hover:text-white transition-colors">X</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Post Modal -->
+    <div id="post-modal" onclick="if (event.target.id === 'post-modal') closeModal()" 
+         class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-[#111113] max-w-3xl w-full max-h-[92dvh] overflow-hidden rounded-3xl border border-white/10 flex flex-col modal">
+            
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-8 pt-6 pb-4 border-b border-white/10">
+                <div class="flex items-center gap-x-3 text-sm">
+                    <span id="modal-category" class="px-3.5 py-1 rounded-full bg-white/10 text-xs font-medium"></span>
+                    <span id="modal-date" class="text-zinc-400"></span>
+                </div>
+                <button onclick="closeModal()" class="text-3xl leading-none text-zinc-400 hover:text-white">&times;</button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="overflow-y-auto flex-1 px-8 pb-8">
+                <div id="modal-image-container" class="mt-6 mb-8 rounded-2xl overflow-hidden">
+                    <img id="modal-image" class="w-full h-auto object-cover" alt="">
+                </div>
+
+                <h1 id="modal-title" class="heading-serif text-5xl tracking-tighter leading-none mb-4"></h1>
+                
+                <div class="flex items-center gap-x-4 text-sm mb-8">
+                    <div class="flex items-center gap-x-2">
+                        <span class="font-medium">Lumora Team</span>
+                    </div>
+                    <span class="text-zinc-500">•</span>
+                    <span id="modal-readtime" class="text-zinc-400"></span>
+                </div>
+
+                <!-- Reading Progress -->
+                <div class="sticky top-0 bg-[#111113] py-3 -mx-8 px-8 border-b border-white/10 mb-6 z-10">
+                    <div class="h-px bg-white/10 w-full">
+                        <div id="reading-progress" class="h-px bg-[#C5A46E] w-0 reading-progress"></div>
+                    </div>
+                </div>
+
+                <div id="modal-content" class="prose max-w-none text-[15.5px] leading-relaxed text-zinc-300">
+                    <!-- Dynamic content injected here -->
+                </div>
+
+                <!-- Tags -->
+                <div id="modal-tags" class="flex flex-wrap gap-2 mt-10"></div>
+
+                <!-- Share -->
+                <div class="mt-10 pt-8 border-t border-white/10">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-zinc-400">Share this story</span>
+                        <div class="flex gap-x-3">
+                            <button onclick="sharePost('twitter')" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fa-brands fa-x-twitter"></i></button>
+                            <button onclick="sharePost('linkedin')" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fa-brands fa-linkedin-in"></i></button>
+                            <button onclick="copyLink()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fa-solid fa-link"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind Script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#C5A46E');
+        }
+
+        // Navbar scroll effect
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            });
+        }
+
+        // Sample Posts Data (Easy to expand)
+        let posts = [
+            {
+                id: 1,
+                title: "The Beginning of an Unfinished Love",
+                excerpt: "Behind the making of our first episode — the emotions, the choices, and why we left it open-ended.",
+                category: "Behind the Scenes",
+                date: "July 15, 2026",
+                readTime: "12 min",
+                image: "https://picsum.photos/id/1015/1200/630",
+                tags: ["Episode 1", "Process", "Drama"],
+                content: `
+                    <p class="text-lg text-zinc-300">When we released the first episode of <strong>"The Beginning of an Unfinished Love"</strong> as a YouTube Short, we knew it would hit differently.</p>
+                    
+                    <h2>Why We Chose to Start Here</h2>
+                    <p>We wanted to introduce our world not with a loud explosion, but with a quiet ache. The kind of ache that Turkish dramas do so beautifully — slow, intentional, and deeply human.</p>
+                    
+                    <p>Every frame was designed to feel like a memory you’re not sure you lived. The warm lighting, the lingering glances, the silence between words — these weren’t accidents.</p>
+                    
+                    <h2>The Hardest Decision</h2>
+                    <p>We shot three different endings for Episode 1. In the end, we chose the one that hurt the most… because that’s where the real story lives.</p>
+                    
+                    <blockquote class="border-l-4 border-[#C5A46E] pl-6 italic text-xl my-8 text-zinc-300">
+                        "Sometimes the most powerful thing you can do is not give the audience what they want — but what they need to feel."
+                    </blockquote>
+                    
+                    <p>This is only the beginning. The love is unfinished… and so is the story.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Turkish Drama Meets Pakistani Soul",
+                excerpt: "How we’re blending two rich storytelling traditions into something completely new.",
+                category: "Culture",
+                date: "July 12, 2026",
+                readTime: "9 min",
+                image: "https://picsum.photos/id/160/1200/630",
+                tags: ["Culture", "Writing", "Inspiration"],
+                content: `
+                    <p>Turkish dramas have a certain poetry. Pakistani stories have raw emotional honesty. We’re trying to create something that carries both.</p>
+                    
+                    <h2>The Fusion</h2>
+                    <p>It’s not about copying either style. It’s about taking the emotional depth and slow-burn romance of Turkish dramas and grounding it in the family dynamics, cultural nuances, and warmth that Pakistani audiences understand instinctively.</p>
+                    
+                    <p>The result feels both familiar and fresh at the same time.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Writing Scenes That Break You",
+                excerpt: "The craft behind emotional family moments that stay with the viewer for days.",
+                category: "Craft",
+                date: "July 8, 2026",
+                readTime: "7 min",
+                image: "https://picsum.photos/id/201/1200/630",
+                tags: ["Writing", "Emotion", "Craft"],
+                content: `
+                    <p>Great drama isn’t about what happens. It’s about what it makes you feel.</p>
+                    
+                    <h2>The Rule We Follow</h2>
+                    <p>We never write a scene just to move the plot. Every scene must either break something or heal something inside a character.</p>
+                    
+                    <p>When we wrote the confrontation scene in Episode 1, we cried in the writers’ room. That’s usually a good sign.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "The Power of Leaving Stories Unfinished",
+                excerpt: "Why cliffhangers and open endings create stronger emotional bonds with your audience.",
+                category: "Storytelling",
+                date: "July 5, 2026",
+                readTime: "6 min",
+                image: "https://picsum.photos/id/251/1200/630",
+                tags: ["Storytelling", "Theory"],
+                content: `
+                    <p>People don’t remember perfect endings. They remember how a story made them feel when it stopped.</p>
+                    
+                    <p>That’s the philosophy behind every Lumora story.</p>
+                `
+            },
+            {
+                id: 5,
+                title: "Building Characters People Actually Care About",
+                excerpt: "Our approach to creating layered, believable characters in short-form drama.",
+                category: "Craft",
+                date: "July 2, 2026",
+                readTime: "10 min",
+                image: "https://picsum.photos/id/1005/1200/630",
+                tags: ["Characters", "Writing"],
+                content: `
+                    <p>Flawed characters are interesting. Broken characters are unforgettable.</p>
+                    
+                    <p>We spend more time on what our characters are hiding than what they’re showing.</p>
+                `
+            }
+        ]
+
+        // Render Featured Posts
+        function renderFeaturedPosts() {
+            const container = document.getElementById('featured-grid');
+            container.innerHTML = '';
+            
+            const featured = posts.slice(0, 3);
+            
+            featured.forEach(post => {
+                const card = document.createElement('div');
+                card.className = `post-card group cursor-pointer bg-white/5 border border-white/10 rounded-3xl overflow-hidden`;
+                card.innerHTML = `
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="${post.image}" class="post-image w-full h-full object-cover" alt="${post.title}">
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 text-xs font-medium bg-black/60 backdrop-blur-md rounded-full">${post.category}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl leading-tight tracking-tight mb-3 group-hover:text-[#C5A46E] transition-colors">${post.title}</h3>
+                        <p class="text-sm text-zinc-400 line-clamp-2">${post.excerpt}</p>
+                        <div class="flex items-center justify-between mt-5 text-xs text-zinc-500">
+                            <span>${post.date}</span>
+                            <span>${post.readTime}</span>
+                        </div>
+                    </div>
+                `;
+                card.onclick = () => openPostModal(post.id);
+                container.appendChild(card);
+            });
+        }
+
+        // Render All Posts + Filters
+        let currentFilter = 'All';
+
+        function renderPosts(filteredPosts = posts) {
+            const container = document.getElementById('posts-grid');
+            container.innerHTML = '';
+
+            if (filteredPosts.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center py-12 text-zinc-400">No stories found matching your search.</p>`;
+                return;
+            }
+
+            filteredPosts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = `post-card group cursor-pointer bg-white/5 border border-white/10 rounded-3xl overflow-hidden flex flex-col`;
+                
+                card.innerHTML = `
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${post.image}" class="post-image w-full h-full object-cover transition-transform" alt="${post.title}">
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 text-xs font-medium bg-black/70 backdrop-blur rounded-full">${post.category}</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="font-semibold text-[21px] leading-tight tracking-tight mb-3 group-hover:text-[#C5A46E] transition-colors">${post.title}</h3>
+                        <p class="text-sm text-zinc-400 line-clamp-3 flex-1">${post.excerpt}</p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-5 text-xs text-zinc-500">
+                            <div>${post.date}</div>
+                            <div class="font-medium">${post.readTime}</div>
+                        </div>
+                    </div>
+                `;
+                
+                card.onclick = () => openPostModal(post.id);
+                container.appendChild(card);
+            });
+        }
+
+        // Category Filters
+        function renderCategoryFilters() {
+            const container = document.getElementById('category-filters');
+            const categories = ['All', ...new Set(posts.map(p => p.category))];
+            
+            container.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `category-pill px-5 py-2 text-sm font-medium rounded-2xl border transition-all ${cat === 'All' ? 'active border-[#C5A46E] bg-[#C5A46E] text-[#111113]' : 'border-white/10 hover:border-white/30'}`;
+                btn.textContent = cat;
+                
+                btn.onclick = () => {
+                    currentFilter = cat;
+                    filterPosts();
+                    
+                    // Update active state
+                    document.querySelectorAll('#category-filters button').forEach(b => b.classList.remove('active', 'border-[#C5A46E]', 'bg-[#C5A46E]', 'text-[#111113]'));
+                    btn.classList.add('active', 'border-[#C5A46E]', 'bg-[#C5A46E]', 'text-[#111113]');
+                };
+                
+                container.appendChild(btn);
+            });
+        }
+
+        function filterPosts() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            let filtered = posts;
+            
+            if (currentFilter !== 'All') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
+            
+            if (searchTerm) {
+                filtered = filtered.filter(p => 
+                    p.title.toLowerCase().includes(searchTerm) || 
+                    p.excerpt.toLowerCase().includes(searchTerm) ||
+                    p.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            renderPosts(filtered);
+        }
+
+        // Open Post Modal
+        function openPostModal(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+
+            // Populate modal
+            document.getElementById('modal-image').src = post.image;
+            document.getElementById('modal-title').textContent = post.title;
+            document.getElementById('modal-category').textContent = post.category;
+            document.getElementById('modal-date').textContent = post.date;
+            document.getElementById('modal-readtime').textContent = post.readTime;
+            document.getElementById('modal-content').innerHTML = post.content;
+
+            // Tags
+            const tagsContainer = document.getElementById('modal-tags');
+            tagsContainer.innerHTML = post.tags.map(tag => 
+                `<span class="px-3 py-1 text-xs bg-white/5 rounded-full border border-white/10">${tag}</span>`
+            ).join('');
+
+            // Show modal
+            const modal = document.getElementById('post-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            // Reset and start reading progress
+            initReadingProgress();
+            
+            // Store current post for sharing
+            window.currentPost = post;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('post-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        // Reading Progress Bar
+        function initReadingProgress() {
+            const progressBar = document.getElementById('reading-progress');
+            const content = document.getElementById('modal-content');
+            
+            progressBar.style.width = '0%';
+            
+            content.onscroll = () => {
+                const scrollTop = content.scrollTop;
+                const scrollHeight = content.scrollHeight - content.clientHeight;
+                const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+                progressBar.style.width = `${progress}%`;
+            };
+        }
+
+        // Share Functions
+        function sharePost(platform) {
+            if (!window.currentPost) return;
+            
+            const url = window.location.href;
+            const text = `${window.currentPost.title} — Lumora Journal`;
+            
+            let shareUrl = '';
+            
+            if (platform === 'twitter') {
+                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+            } else if (platform === 'linkedin') {
+                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+            }
+            
+            window.open(shareUrl, '_blank');
+        }
+
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const toast = document.createElement('div');
+                toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-900 border border-white/20 px-5 py-2.5 rounded-2xl text-sm flex items-center gap-x-2`;
+                toast.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i> <span>Link copied to clipboard</span>`;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.transition = 'all 0.3s';
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 2200);
+            });
+        }
+
+        // Newsletter
+        function subscribeNewsletter() {
+            const emailInput = document.getElementById('newsletter-email');
+            if (!emailInput.value) return;
+            
+            const container = emailInput.parentElement;
+            
+            container.innerHTML = `
+                <div class="flex-1 flex items-center justify-center gap-x-3 py-3.5 text-emerald-400 font-medium">
+                    <i class="fa-solid fa-check-circle"></i> 
+                    <span>Thank you! You're now part of the story.</span>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                container.innerHTML = `
+                    <input type="email" id="newsletter-email" placeholder="your@email.com" 
+                           class="flex-1 bg-white/5 border border-white/10 px-5 py-3.5 rounded-2xl text-sm outline-none focus:border-[#C5A46E]">
+                    <button onclick="subscribeNewsletter()" 
+                            class="px-8 py-3.5 bg-[#C5A46E] hover:bg-amber-600 transition-all text-[#111113] font-semibold rounded-2xl whitespace-nowrap">
+                        Subscribe
+                    </button>
+                `;
+            }, 4500);
+        }
+
+        // Theme Toggle (Light/Dark)
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                icon.classList.replace('fa-sun', 'fa-moon');
+                body.style.background = '';
+            } else {
+                body.classList.add('light-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
+                body.style.background = '#f8f1e3';
+                body.style.color = '#222';
+            }
+        }
+
+        // Mobile Menu (Simple)
+        function toggleMobileMenu() {
+            alert('Mobile menu would open here in full version. For now, use desktop or scroll to sections.');
+        }
+
+        // Search + Filter Listeners
+        function initSearchAndFilters() {
+            const searchInput = document.getElementById('search-input');
+            
+            searchInput.addEventListener('input', () => {
+                filterPosts();
+            });
+            
+            // Keyboard shortcut for search
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '/' && document.activeElement.tagName === 'BODY') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+        }
+
+        // Initialize Everything
+        function initializeSite() {
+            initializeTailwind();
+            initNavbar();
+            
+            renderFeaturedPosts();
+            renderCategoryFilters();
+            renderPosts();
+            initSearchAndFilters();
+            
+            // Make first category active
+            setTimeout(() => {
+                const firstBtn = document.querySelector('#category-filters button');
+                if (firstBtn) firstBtn.classList.add('active', 'border-[#C5A46E]', 'bg-[#C5A46E]', 'text-[#111113]');
+            }, 100);
+            
+            // Easter egg: Press "?" to show all posts
+            document.addEventListener('keypress', (e) => {
+                if (e.key === '?') {
+                    document.getElementById('search-input').value = '';
+                    currentFilter = 'All';
+                    renderPosts(posts);
+                }
+            });
+            
+            console.log('%c[Lumora Journal] Professional blog site initialized successfully.', 'color:#666');
+        }
+
+        // Boot the site
+        window.onload = initializeSite;
+        
+        // Bonus: Make posts globally accessible for future editing
+        window.LUMORA_POSTS = posts;
+    </script>
+</body>
+</html>
